@@ -21,6 +21,7 @@
 #include "board_features.h"
 #include "hal-config-board.h"
 #include "hal-config-app-common.h"
+#include "src/hal-config-ecen5823.h"
 
 #ifndef HAL_VCOM_ENABLE
 #define HAL_VCOM_ENABLE                   (1)
