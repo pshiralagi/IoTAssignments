@@ -1,14 +1,17 @@
-/*************************************************************************//**
- * @file glib_bitmap.c
+/***************************************************************************//**
+ * @file
  * @brief Silicon Labs Graphics Library: Bitmap Drawing Routines
- ******************************************************************************
+ *******************************************************************************
  * # License
- * <b>Copyright 2015 Silicon Labs, http://www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * The licensor of this software is Silicon Laboratories Inc.  Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement.  This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
  ******************************************************************************/
 
@@ -27,7 +30,9 @@
 *
 *  Sets up a bitmap that starts at x0,y0 and draws bitmap.
 *
-*  For monochrome displays, each 8-bit element contains 8 pixels values.
+*  For monochrome displays, each 8-bit element contains 8 pixel values. A bit
+*  value of 1 indicates a white pixel, while 0 indicates a black pixel. Note
+*  that this format may vary with the DMD implementation.
 *
 *  For 3-bit RGB displays, each bit in the array are one color component (red,
 *  green and blue) of the pixel, so that 3 bits represent one pixel (0xBGR).
@@ -79,4 +84,35 @@ EMSTATUS GLIB_drawBitmap(GLIB_Context_t *pContext, int32_t x, int32_t y,
 
   /* Reset driver clipping area to GLIB clipping region */
   return GLIB_applyClippingRegion(pContext);
+}
+
+/**************************************************************************//**
+*  @brief
+*  Inverts each bit of the bitmap.
+*
+*  For monochrome displays, the result is an inversion of the image.
+*
+*  For RGB displays, the result is the negative of the input image.
+*
+*  @note
+*  The function inverts entire bytes, meaning that any bits contained within
+*  the array that may not be part of the image will also be inverted.
+*
+*  @param pContext
+*  Pointer to a GLIB_Context_t in which the bitmap is drawn.
+*  @param bitmapSize
+*  Size of the bitmap array in terms of bytes.
+*  @param picData
+*  Bitmap data.
+******************************************************************************/
+void GLIB_invertBitmap(GLIB_Context_t *pContext, uint32_t bitmapSize,
+                       uint8_t *picData)
+{
+  (void) pContext;  /* Suppress compiler warning: unused parameter. */
+
+  /* Invert the entire array, byte by byte. */
+  uint32_t i;
+  for (i = 0; i < bitmapSize; ++i) {
+    picData[i] = ~(picData[i]);
+  }
 }

@@ -1,14 +1,17 @@
-/*************************************************************************//**
- * @file glib_string.c
+/***************************************************************************//**
+ * @file
  * @brief Silicon Labs Graphics Library: String Drawing Routines
- ******************************************************************************
+ *******************************************************************************
  * # License
- * <b>Copyright 2015 Silicon Labs, http://www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * The licensor of this software is Silicon Laboratories Inc.  Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement.  This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
  ******************************************************************************/
 
@@ -55,7 +58,7 @@ EMSTATUS GLIB_drawChar(GLIB_Context_t *pContext, char myChar, int32_t x, int32_t
   uint16_t *pPixMap16;
   uint32_t *pPixMap32;
   uint16_t row;
-  uint16_t currentRow;
+  uint32_t currentRow;
   uint16_t xOffset;
   uint32_t drawnElements = 0;
 

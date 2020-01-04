@@ -1,15 +1,30 @@
 /***************************************************************************//**
  * @file
  * @brief I2C simple poll-based master mode driver for the DK/STK.
- * @version 5.6.0
  *******************************************************************************
  * # License
- * <b>Copyright 2015 Silicon Labs, Inc. http://www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * SPDX-License-Identifier: Zlib
+ *
+ * The licensor of this software is Silicon Laboratories Inc.
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
  *
  ******************************************************************************/
 
@@ -24,8 +39,19 @@
 #include "i2cspm.h"
 #include "em_assert.h"
 
-/*******************************************************************************
- **************************   GLOBAL FUNCTIONS   *******************************
+/***************************************************************************//**
+ * @addtogroup kitdrv
+ * @{
+ ******************************************************************************/
+
+/***************************************************************************//**
+ * @addtogroup I2CSPM
+ * @brief I2C Simple Polled Master driver
+ *
+ * @details
+ *   This driver supports master mode, single bus-master only. It blocks
+ *   while waiting for the transfer is complete, polling for completion in EM0.
+ * @{
  ******************************************************************************/
 
 /***************************************************************************//**
@@ -139,10 +165,6 @@ void I2CSPM_Init(I2CSPM_Init_TypeDef *init)
  * @brief
  *   Perform I2C transfer
  *
- * @details
- *   This driver only supports master mode, single bus-master. It does not
- *   return until the transfer is complete, polling for completion.
- *
  * @param[in] i2c
  *   Pointer to the peripheral port
  *
@@ -161,3 +183,6 @@ I2C_TransferReturn_TypeDef I2CSPM_Transfer(I2C_TypeDef *i2c, I2C_TransferSeq_Typ
   }
   return ret;
 }
+
+/** @} (end group I2CSPM) */
+/** @} (end addtogroup kitdrv) */

@@ -1,15 +1,30 @@
 /***************************************************************************//**
- * @file udelay.c
+ * @file
  * @brief Microsecond delay routine.
- * @version 5.6.0
  *******************************************************************************
  * # License
- * <b>Copyright 2015 Silicon Labs, Inc. http://www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * SPDX-License-Identifier: Zlib
+ *
+ * The licensor of this software is Silicon Laboratories Inc.
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
  *
  ******************************************************************************/
 
@@ -24,27 +39,34 @@
 
 #include "udelay.h"
 
+/***************************************************************************//**
+ * @addtogroup kitdrv
+ * @{
+ ******************************************************************************/
+
 /**************************************************************************//**
- * @addtogroup Udelay
- * @{ Implements active wait microsecond delay.
- *
- *  The delay is implemented as a loop coded in assembly. The delay loop must
- *  be calibrated by calling @ref UDELAY_Calibrate() once. The calibration
- *  algorithm is taken from linux 2.4 sources (bogomips).
- *
- *  The delay is fairly accurate, the assembly coding will not be optimized
- *  by the compiler. The delay function should not be used for longer delays
- *  than 1000 us. Calling the delay function with > 1000 will give unpredictable
- *  results.
- *  Recalibrate the loop when HFCORECLK is changed.
- *
- *  The calibration uses the RTC clocked by LFRCO to measure time. Better
- *  accuracy can be achieved by adding \#define UDELAY_LFXO (i.e. add
- *  -DUDELAY_LFXO on the commandline). The LFXO oscillator is then used for
- *  delay loop calibration.
- *
- *  The calibration function will restore RTC upon exit.
- ** @} ***********************************************************************/
+* @addtogroup Udelay
+* @brief Calibrated busy wait loop.
+*
+* @details
+*  The delay is implemented as a loop coded in assembly. The delay loop must
+*  be calibrated by calling @ref UDELAY_Calibrate() once. The calibration
+*  algorithm is taken from linux 2.4 sources (bogomips).
+*
+*  The delay is fairly accurate, the assembly coding will not be optimized
+*  by the compiler. The delay function should not be used for longer delays
+*  than 1000 us. Calling the delay function with > 1000 will give unpredictable
+*  results.
+*  Recalibrate the loop when HFCORECLK is changed.
+*
+*  The calibration uses the RTC clocked by LFRCO to measure time. Better
+*  accuracy can be achieved by adding \#define UDELAY_LFXO (i.e. add
+*  -DUDELAY_LFXO on the commandline). The LFXO oscillator is then used for
+*  delay loop calibration.
+*
+*  The calibration function will restore RTC upon exit.
+* @{
+******************************************************************************/
 
 /** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
 
@@ -73,6 +95,10 @@ void UDELAY_Calibrate(void)
 {
 #if (_SILICON_LABS_32B_SERIES >= 2)
   CMU_Select_TypeDef rtccClkSel;
+#if defined(_SILICON_LABS_32B_SERIES_2_CONFIG_2)
+  bool lfrcoClkTurnoff = false;
+  bool rtccClkTurnoff  = false;
+#endif
 #else
   CMU_Select_TypeDef lfaClkSel;
   CMU_ClkDiv_TypeDef rtcClkDiv;
@@ -147,7 +173,20 @@ void UDELAY_Calibrate(void)
 #else
   /* Remember current clock source selection for RTCC. */
   rtccClkSel = CMU_ClockSelectGet(cmuClock_RTCC);
+#if defined(LFRCO_PRESENT)
   CMU_ClockSelectSet(cmuClock_RTCC, cmuSelect_LFRCO);
+#elif defined(PLFRCO_PRESENT)
+  CMU_ClockSelectSet(cmuClock_RTCC, cmuSelect_PLFRCO);
+#else
+#error Neither LFRCO nor PLFRCO is present.
+#endif
+#endif
+
+#if defined(_SILICON_LABS_32B_SERIES_2_CONFIG_2)
+  if (!(CMU->CLKEN0 & CMU_CLKEN0_RTCC)) {
+    rtccClkTurnoff = true;
+  }
+  CMU_ClockEnable(cmuClock_RTCC, true);
 #endif
 #endif // #if (_SILICON_LABS_32B_SERIES < 2)
 
@@ -204,9 +243,23 @@ void UDELAY_Calibrate(void)
 
 #if (_SILICON_LABS_32B_SERIES >= 2)
   /* Wait for oscillator to stabilize. */
+#if defined(LFRCO_PRESENT)
+#if defined(_SILICON_LABS_32B_SERIES_2_CONFIG_2)
+  if (!(CMU->CLKEN0 & CMU_CLKEN0_LFRCO)) {
+    lfrcoClkTurnoff = true;
+  }
+  CMU_ClockEnable(cmuClock_LFRCO, true);
+#endif
   while ((LFRCO->STATUS & (LFRCO_STATUS_ENS | LFRCO_STATUS_RDY))
          != (LFRCO_STATUS_ENS | LFRCO_STATUS_RDY)) {
   }
+#elif defined(PLFRCO_PRESENT)
+  while ((PLFRCO->STATUS & (PLFRCO_STATUS_ENS | PLFRCO_STATUS_RDY))
+         != (PLFRCO_STATUS_ENS | PLFRCO_STATUS_RDY)) {
+  }
+#else
+#error Neither LFRCO nor PLFRCO is present.
+#endif
 #endif
 
 #else /* #if defined(RTCC_PRESENT) && (RTCC_COUNT == 1) */
@@ -303,6 +356,14 @@ void UDELAY_Calibrate(void)
 #else /* #if (_SILICON_LABS_32B_SERIES < 2) */
   /* Restore original clock source selection. */
   CMU_ClockSelectSet(cmuClock_RTCC, rtccClkSel);
+#if defined(_SILICON_LABS_32B_SERIES_2_CONFIG_2)
+  if (lfrcoClkTurnoff == true) {
+    CMU_ClockEnable(cmuClock_LFRCO, false);
+  }
+  if (rtccClkTurnoff == true) {
+    CMU_ClockEnable(cmuClock_RTCC, false);
+  }
+#endif
 #endif /* #if (_SILICON_LABS_32B_SERIES < 2) */
 }
 
@@ -504,3 +565,6 @@ udelay_2
 #endif /* defined(__CC_ARM) */
 
 /** @endcond */
+
+/** @} (end group Udelay) */
+/** @} (end group kitdrv) */

@@ -1,14 +1,17 @@
-/*************************************************************************//**
- * @file glib.h
+/***************************************************************************//**
+ * @file
  * @brief Silicon Labs Graphics Library
- ******************************************************************************
+ *******************************************************************************
  * # License
- * <b>Copyright 2015 Silicon Labs, http://www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * The licensor of this software is Silicon Laboratories Inc.  Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement.  This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
  ******************************************************************************/
 
@@ -105,6 +108,7 @@
  * color.
  * @li @ref GLIB_drawPolygon(). Draw lines between all the points in the given
  * set using the foreground color.
+ * @li @ref GLIB_drawPolygonFilled(). Draw filled polygon between points.
  *
  * @n @section glib_draw_pixel Draw Pixels
  *
@@ -138,12 +142,13 @@
  * @n @section glib_bitmap Draw Bitmap
  *
  *   To draw an image or custom bitmaps on the display the @ref GLIB_drawBitmap()
- *   function can be used. Note that the format of the bitmap depends on the DMD
- *   implementation of the display. The color displays typically use a bitmap
- *   format where each pixel is represented by 3 consecutive bytes representing
- *   the red, green and blue color components. While a monochrome display
- *   typically use a bitmap format where 1 byte represents 8 pixels where a 0 bit
- *   is white and a 1 bit is black.
+ *   function can be used. The color displays typically use a bitmap format
+ *   where each pixel is represented by 3 consecutive bytes representing the
+ *   red, green and blue color components. While monochrome displays
+ *   typically use a bitmap format where 1 byte represents 8 pixels where a 1 bit
+ *   is white and a 0 bit is black. Note that bitmaps are insensitive to the
+ *   foreground and background color settings, and that the format of the bitmap
+ *   depends on the DMD implementation of the display.
  *
  * @n @section glib_example Example
  *
@@ -323,8 +328,11 @@ EMSTATUS GLIB_drawString(GLIB_Context_t *pContext, const char* pString, uint32_t
 EMSTATUS GLIB_drawChar(GLIB_Context_t *pContext, char myChar, int32_t x,
                        int32_t y, bool opaque);
 
-EMSTATUS GLIB_drawBitmap(GLIB_Context_t* pContext, int32_t x, int32_t y,
+EMSTATUS GLIB_drawBitmap(GLIB_Context_t *pContext, int32_t x, int32_t y,
                          uint32_t width, uint32_t height, const uint8_t *picData);
+
+void GLIB_invertBitmap(GLIB_Context_t *pContext, uint32_t bitmapSize,
+                       uint8_t *picData);
 
 EMSTATUS GLIB_drawLine(GLIB_Context_t *pContext, int32_t x1, int32_t y1,
                        int32_t x2, int32_t y2);
@@ -342,6 +350,9 @@ EMSTATUS GLIB_drawRectFilled(GLIB_Context_t *pContext,
 
 EMSTATUS GLIB_drawPolygon(GLIB_Context_t *pContext,
                           uint32_t numPoints, const int32_t *polyPoints);
+
+EMSTATUS GLIB_drawPolygonFilled(GLIB_Context_t *pContext,
+                                uint32_t numPoints, const int32_t *polyPoints);
 
 EMSTATUS GLIB_drawPixelRGB(GLIB_Context_t *pContext, int32_t x, int32_t y,
                            uint8_t red, uint8_t green, uint8_t blue);
