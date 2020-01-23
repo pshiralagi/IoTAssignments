@@ -19,18 +19,21 @@ int appMain(gecko_configuration_t *config)
 {
   // Initialize stack
   gecko_init(config);
+  gpioInit();
+  gpioLed1SetOn();
+  gpioLed0SetOn();
 
   /* Infinite loop */
-  while (1) {
-	  delayApproxOneSecond();
-	  gpioLed0SetOff();
-
-	  delayApproxOneSecond();
-	  gpioLed1SetOff();
-
-	  delayApproxOneSecond();
-	  gpioLed1SetOn();
-	  //gpioLed0SetOn();
-
-  }
+//  while (1) {
+//	  delayApproxOneSecond();
+//	  gpioLed0SetOff();
+//
+//	  delayApproxOneSecond();
+//	  gpioLed1SetOff();
+//
+//	  delayApproxOneSecond();
+//	  gpioLed1SetOn();
+//	  //gpioLed0SetOn();
+//
+//  }
 }
