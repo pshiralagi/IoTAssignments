@@ -22,6 +22,8 @@ int appMain(gecko_configuration_t *config)
   gpioInit();
   gpioLed1SetOn();
   gpioLed0SetOn();
+  SLEEP_InitEx();
+  LETIMER_CompareSet;
 
   /* Infinite loop */
 //  while (1) {
