@@ -1,41 +1,43 @@
-#include "gecko_configuration.h"
-#include "gpio.h"
-#include "native_gecko.h"
+#include "main.h"
 
-static void delayApproxOneSecond(void)
-{
-	/**
-	 * Wait loops are a bad idea in general!  Don't copy this code in future assignments!
-	 * We'll discuss how to do this a better way in the next assignment.
-	 */
-	volatile int i;
-	for (i = 0; i < 3500000; ) {
-		  i=i+1;
-	}
-}
-
+bool on, off;
 
 int appMain(gecko_configuration_t *config)
 {
+
   // Initialize stack
   gecko_init(config);
   gpioInit();
-  gpioLed1SetOn();
+  cmuInit();
+  letimerInit();
+  energyConfig();
+
   gpioLed0SetOn();
-  SLEEP_InitEx();
-  LETIMER_CompareSet;
 
   /* Infinite loop */
-//  while (1) {
-//	  delayApproxOneSecond();
-//	  gpioLed0SetOff();
-//
-//	  delayApproxOneSecond();
-//	  gpioLed1SetOff();
-//
-//	  delayApproxOneSecond();
-//	  gpioLed1SetOn();
-//	  //gpioLed0SetOn();
-//
-//  }
+  while (1)
+  {
+	  toggleLed();
+	  if (energy_mode != 0)
+	  {
+		  goToSleep();
+	  }
+
+  }
 }
+
+void toggleLed(void)
+{
+	  if (irq_flg == 0)
+	  {
+		  gpioLed0SetOn();
+	  }
+	  if (irq_flg == 1)
+	  {
+		  gpioLed0SetOff();
+	  }
+}
+
+
+
+
