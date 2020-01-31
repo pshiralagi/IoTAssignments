@@ -12,21 +12,18 @@
 /*
  * @brief : Initialization routine for letimer0
  */
-bool on, off;
 
 void letimerInit(void)
 {
 	LETIMER_Init_TypeDef letimer_default =  {false, true, true, false, 0, 0, letimerUFOANone, letimerUFOANone, letimerRepeatFree, 0} ;	//Instance of default values
 	LETIMER_Init(LETIMER0, &letimer_default);		//Initialization of letimer0 with default values
-	calc_led_period = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(led_period - led_on_time))/1000;
-	calc_led_on_time = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(led_on_time))/1000;
+	calc_led_period = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(led_period - led_on_time))/1000;//calculating ledperiod
+	calc_led_on_time = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(led_on_time))/1000;//calculating ledontime
 	LETIMER_CompareSet(LETIMER0, 0, calc_led_on_time);		//Comparator 0, value to be loaded set
 	LETIMER_IntEnable(LETIMER0, LETIMER_IF_UF);					//Enable interrupts
 	NVIC_EnableIRQ(LETIMER0_IRQn);
 	LETIMER_Enable(LETIMER0, true);
-	irq_flg = 0;
-	on = true;
-	off = false;
+	irq_flg = 0;		//Initializing flag toggled in interrupt
 
 }
 

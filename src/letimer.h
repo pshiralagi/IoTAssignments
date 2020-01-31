@@ -1,5 +1,5 @@
 /*
- * @filename : cmu.c
+ * @filename : letimer.h
  *
  *  @date : Jan 29, 2020
  *  @description : File containing clock initialization function
@@ -13,8 +13,8 @@
 
 
 /*	Defines		*/
-#define led_period (7000)		//Interval at which LED has to be switched on
-#define led_on_time (1000)		//Interval for which LED has to stay on
+#define led_period (2250)		//Interval at which LED has to be switched on
+#define led_on_time (175)		//Interval for which LED has to stay on
 
 /*	Functions	*/
 void letimerInit(void);
