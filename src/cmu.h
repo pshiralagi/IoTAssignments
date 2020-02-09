@@ -9,7 +9,7 @@
 #ifndef cmu_h
 #define cmu_h
 #include<em_cmu.h>
-#include "main.h"
+#include "energy.h"
 
 /*	@brief : Functions in cmu.c	*/
 void cmuInit(void);

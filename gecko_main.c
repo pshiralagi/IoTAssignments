@@ -38,6 +38,9 @@
 /* Device initialization header */
 #include "hal-config.h"
 
+/*Log initialization header */
+#include "src/log.h"
+
 #if defined(HAL_CONFIG)
 #include "bsphalconfig.h"
 #else
@@ -93,7 +96,7 @@ static gecko_configuration_t config = {
 #endif // defined(FEATURE_PA_INPUT_FROM_VBAT)
 #endif // (HAL_PA_ENABLE)
 };
-
+int appMain(gecko_configuration_t *config);
 /**
  * @brief  Main function
  */
@@ -105,6 +108,8 @@ int main(void)
   initBoard();
   /* Initialize application */
   initApp();
+  /* Initialize logging */
+  logInit();
   /* Start application */
   appMain(&config);
 }

@@ -14,9 +14,13 @@
 #include "cmu.h"
 #include "energy.h"
 #include <em_emu.h>
+#include "temperature.h"
 
 //Functions
 void toggleLed(void);
+void initApp(void);
+
+#define INCLUDE_LOG_DEBUG 1
 
 
 

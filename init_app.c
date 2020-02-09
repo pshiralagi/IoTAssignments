@@ -26,7 +26,6 @@
 #include "bsp.h"
 #include "i2cspm.h"
 #include "pti.h"
-
 void initApp(void)
 {
   // Enable PTI

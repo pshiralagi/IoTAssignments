@@ -95,8 +95,8 @@ typedef struct {
     11,                         /* SCL pin */                                  \
     gpioPortC,                  /* SDA port */                                 \
     10,                         /* SDA pin */                                  \
-    15,                         /* Location of SCL */                          \
-    15,                         /* Location of SDA */                          \
+    14,                         /* Location of SCL */                          \
+    16,                         /* Location of SDA */                          \
     0,                          /* Use currently configured reference clock */ \
     I2C_FREQ_STANDARD_MAX,      /* Set to standard rate  */                    \
     i2cClockHLRStandard,        /* Set to use 4:4 low/high duty cycle */       \

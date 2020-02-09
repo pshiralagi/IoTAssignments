@@ -10,8 +10,8 @@
  *    	@reference :
  */
 
-
 #include "main.h"
+
 
 int appMain(gecko_configuration_t *config)
 {
@@ -22,13 +22,18 @@ int appMain(gecko_configuration_t *config)
   cmuInit();
   letimerInit();
   energyConfig();
-
-  gpioLed0SetOn();
-
+  tempInit();
   /* Infinite loop */
   while (1)
   {
-	  toggleLed();
+	  while (event_word != 0)
+	  {
+		  if(event_word & (1<<0))
+		  {
+			  check_temp_event();
+		  }
+
+	  }
 	  if (energy_mode != 0)
 	  {
 		  goToSleep();
@@ -37,7 +42,7 @@ int appMain(gecko_configuration_t *config)
   }
 }
 
-/*	@brief : Function to toggle LED based on flag set in interrupt	*/
+/*	@brief : Function to toggle LED based on flag set in interrupt (Assignment 2)	*/
 void toggleLed(void)
 {
 	  if (irq_flg == 0)

@@ -29,10 +29,12 @@ void goToSleep(void)
 {
 	if ((energy_mode < 3) && (energy_mode > 0))	//If energy mode to be entered is EM1 or EM2
 	{
+		logFlush();								//Avoid printing garbage values on terminal
 		SLEEP_Sleep();
 	}
 	else if (energy_mode == 3)					//If energy mode to be entered is EM3
 	{
+		logFlush();
 		EMU_EnterEM3(true);
 	}
 	else if (energy_mode == 4)					//If energy mode to be entered is EM4 (Need to verify this)

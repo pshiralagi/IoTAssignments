@@ -10,10 +10,13 @@
 #ifndef energy_h
 #define energy_h
 
-#include "main.h"
-#include <sleep.h>
 
-#define energy_mode sleepEM3	//Sleep mode selected, this mode will be entered (not this mode - 1)
+#include <sleep.h>
+#include "energy.h"
+#include "log.h"
+#include <em_emu.h>
+
+#define energy_mode sleepEM2	//Sleep mode selected, this mode will be entered (not this mode - 1)
 
 void energyConfig(void);
 void goToSleep(void);
