@@ -20,14 +20,14 @@
 #include "log.h"
 
 //Function declarations
-void init_i2c(void);
-void TempTransferInit_i2c(void);
-uint16_t GetTemp_i2c(void);
+void init_i2c(void);	//Initialized i2c0
+void TempTransferInit_i2c(void);	//Initializing i2c values to write and read from temperature sensor
+uint16_t GetTemp_i2c(void);			//Writed to and reads from temperature sensor
 
 //Variables
-I2C_TransferSeq_TypeDef write_seq;
-I2C_TransferSeq_TypeDef read_seq;
-uint8_t temp[2];
+I2C_TransferSeq_TypeDef write_seq;	//Write sequence
+I2C_TransferSeq_TypeDef read_seq;	//Read sequence
+uint8_t temp[2];					//2 bytes stored after data is read
 
 #define TEMP_ADDR (0x40)
 #endif

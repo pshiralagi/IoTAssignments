@@ -20,6 +20,7 @@
  ******************************************************************************/
 
 /* Board headers */
+#include "src/main.h"
 #include "init_mcu.h"
 #include "init_board.h"
 #include "init_app.h"
@@ -96,7 +97,6 @@ static gecko_configuration_t config = {
 #endif // defined(FEATURE_PA_INPUT_FROM_VBAT)
 #endif // (HAL_PA_ENABLE)
 };
-int appMain(gecko_configuration_t *config);
 /**
  * @brief  Main function
  */

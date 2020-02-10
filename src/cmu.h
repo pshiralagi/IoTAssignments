@@ -12,6 +12,5 @@
 #include<em_cmu.h>
 #include "energy.h"
 
-/*	@brief : Functions in cmu.c	*/
-void cmuInit(void);
+void cmuInit(void);	//initializes the oscillator and selects the clock source
 #endif

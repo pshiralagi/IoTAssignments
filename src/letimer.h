@@ -15,14 +15,14 @@
 
 
 /*	Defines		*/
-#define led_period (3000)		//Interval at which LED has to be switched on
-#define led_on_time (3000)		//Interval for which LED has to stay on
+#define primary_period (3000)		//Primary interrupt interval
+#define on_time (3000)		//Secondary/alternate interrupt if required
 
 /*	Functions	*/
-void letimerInit(void);
-void timerWaitUs(uint32_t us_wait);
-uint16_t calc_led_period, calc_led_on_time;
+void letimerInit(void);	//Initialize letimer0
+void timerWaitUs(uint32_t us_wait);	//Blocking wait function, input in us
 
+uint16_t calc_primary_period, calc_secondary_period;
 volatile uint8_t irq_flg;
 volatile uint8_t event_word;
 #endif

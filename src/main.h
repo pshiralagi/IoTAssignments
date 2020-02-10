@@ -20,10 +20,10 @@
 #include <em_core.h>
 
 //Functions
-void initApp(void);
-void scheduler(void);
+int appMain(gecko_configuration_t *config);	//main function, consists some initializations and calls to functions
+void scheduler(void);	//Function to schedule and perform events and then go to sleep based on selected mode
 
-#define INCLUDE_LOG_DEBUG 1
+#define INCLUDE_LOG_DEBUG 1	//Debug required in file
 
 
 

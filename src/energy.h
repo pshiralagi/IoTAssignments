@@ -19,7 +19,7 @@
 
 #define energy_mode sleepEM3	//Sleep mode selected, this mode will be entered (not this mode - 1)
 
-void energyConfig(void);
-void goToSleep(void);
+void energyConfig(void);	//Function to initialize various energy modes
+void goToSleep(void);		//Function to go to sleep based on energy mode
 
 #endif

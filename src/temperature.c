@@ -11,7 +11,7 @@
 //Includes
 #include "temperature.h"
 
-/*	Initializing i2c for temperature readings	*/
+/*	@brief : Initializing i2c for temperature readings	*/
 void tempInit(void)
 {
 	init_i2c();

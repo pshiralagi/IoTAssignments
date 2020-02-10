@@ -43,7 +43,7 @@ int appMain(gecko_configuration_t *config)
   }
 }
 
-/*	@brief : Function to schedule and perform events	*/
+/*	@brief : Function to schedule and perform events and then go to sleep based on selected mode	*/
 void scheduler(void)
 {
 	  /* Check if any event flag is set */

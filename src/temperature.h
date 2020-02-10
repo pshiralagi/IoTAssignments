@@ -15,8 +15,8 @@
 #include "i2c.h"
 
 //Function declarations
-void tempInit(void);
-void check_temp_event(void);
+void tempInit(void);	//Initializing i2c for temperature readings
+void check_temp_event(void);	//Checking temperature, includes load power management
 
 
 
