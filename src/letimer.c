@@ -5,6 +5,7 @@
  *  @description : File containing letimer initialization function
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 
 #include "letimer.h"
@@ -23,6 +24,7 @@ void letimerInit(void)
 	LETIMER_IntEnable(LETIMER0, LETIMER_IF_UF);					//Enable interrupts
 	NVIC_EnableIRQ(LETIMER0_IRQn);
 	LETIMER_Enable(LETIMER0, true);
+	event_word = 0;
 	//irq_flg = 0;		//Initializing flag toggled in interrupt
 
 }
@@ -43,8 +45,12 @@ void LETIMER0_IRQHandler(void)
 //		irq_flg = 0;
 //	}
 
+	/*	Code to set event 1	*/
 	/*Setting event handler flag for assignment 2*/
+	CORE_DECLARE_IRQ_STATE;
+	CORE_ENTER_CRITICAL();
 	event_word |= 0x01;
+	CORE_EXIT_CRITICAL();
 	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
 	LETIMER_CompareSet(LETIMER0, 0, calc_led_on_time);		//setting period when led should switch on
 

@@ -5,11 +5,13 @@
  *  @description : File containing clock initialization function
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 #ifndef letimer_h
 #define letimer_h
 #include <em_letimer.h>
 #include "cmu.h"
+#include <em_core.h>
 
 
 /*	Defines		*/

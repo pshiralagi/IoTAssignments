@@ -5,6 +5,7 @@
  *  @description : Header file containing functions to read temperature
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 #ifndef temperature_h
 #define temperature_h

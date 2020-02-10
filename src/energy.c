@@ -5,6 +5,7 @@
  *  @description : File containing letimer initialization function
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 
 #include "energy.h"
@@ -34,7 +35,7 @@ void goToSleep(void)
 	}
 	else if (energy_mode == 3)					//If energy mode to be entered is EM3
 	{
-		logFlush();
+		logFlush();								//Avoid printing garbage values on terminal
 		EMU_EnterEM3(true);
 	}
 	else if (energy_mode == 4)					//If energy mode to be entered is EM4 (Need to verify this)

@@ -5,6 +5,7 @@
  *  @description : Header file for clock initialization function
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 #ifndef cmu_h
 #define cmu_h

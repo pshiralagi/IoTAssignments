@@ -3,6 +3,7 @@
  *
  *  Created on: Dec 12, 2018
  *      Author: Dan Walkes
+ *      Co author: Pshiralai
  */
 
 #ifndef SRC_GPIO_H_
@@ -14,6 +15,8 @@ void gpioLed0SetOn();
 void gpioLed0SetOff();
 void gpioLed1SetOn();
 void gpioLed1SetOff();
+void gpioDeInit();
+void gpioReInit();
 
 #define	LED0_port gpioPortF
 #define LED0_pin 4

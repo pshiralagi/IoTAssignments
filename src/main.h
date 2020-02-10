@@ -5,6 +5,7 @@
  *  @description : main header file
  *
  *    	@author : pshiralagi
+ *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
  */
 
 #include "gecko_configuration.h"
@@ -15,6 +16,8 @@
 #include "energy.h"
 #include <em_emu.h>
 #include "temperature.h"
+#include <sleep.h>
+#include <em_core.h>
 
 //Functions
 void toggleLed(void);
