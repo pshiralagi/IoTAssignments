@@ -20,8 +20,8 @@
 #include <em_core.h>
 
 //Functions
-void toggleLed(void);
 void initApp(void);
+void scheduler(void);
 
 #define INCLUDE_LOG_DEBUG 1
 

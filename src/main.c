@@ -37,6 +37,15 @@ int appMain(gecko_configuration_t *config)
   /* Infinite loop */
   while (1)
   {
+	  /*	Checks if events are sent and performs them if needed and then sleeps	*/
+	  scheduler();
+
+  }
+}
+
+/*	@brief : Function to schedule and perform events	*/
+void scheduler(void)
+{
 	  /* Check if any event flag is set */
 	  while (event_word != 0)
 	  {
@@ -47,6 +56,7 @@ int appMain(gecko_configuration_t *config)
 		  }
 
 	  }
+
 	  /* If energy mode required is not 0, go to sleep */
 	  CORE_DECLARE_IRQ_STATE;
 	  CORE_ENTER_CRITICAL();
@@ -55,23 +65,6 @@ int appMain(gecko_configuration_t *config)
 		  goToSleep();
 	  }
 	  CORE_EXIT_CRITICAL();
-
-  }
-}
-
-
-
-/*	@brief : Function to toggle LED based on flag set in interrupt (Assignment 2)	*/
-void toggleLed(void)
-{
-	  if (irq_flg == 0)
-	  {
-		  gpioLed0SetOn();
-	  }
-	  if (irq_flg == 1)
-	  {
-		  gpioLed0SetOff();
-	  }
 }
 
 

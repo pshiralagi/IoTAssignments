@@ -74,3 +74,16 @@ void gpioLed1SetOff()
 {
 	GPIO_PinOutClear(LED1_port,LED1_pin);
 }
+
+/*	@brief : Function to toggle LED based on flag set in interrupt (Assignment 2)	*/
+void toggleLed(void)
+{
+	  if (irq_flg == 0)
+	  {
+		  gpioLed0SetOn();
+	  }
+	  if (irq_flg == 1)
+	  {
+		  gpioLed0SetOff();
+	  }
+}

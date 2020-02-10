@@ -8,7 +8,7 @@
 
 #ifndef SRC_GPIO_H_
 #define SRC_GPIO_H_
-#include <stdbool.h>
+#include "letimer.h"
 
 void gpioInit();
 void gpioLed0SetOn();
@@ -17,6 +17,7 @@ void gpioLed1SetOn();
 void gpioLed1SetOff();
 void gpioDeInit();
 void gpioReInit();
+void toggleLed(void);
 
 #define	LED0_port gpioPortF
 #define LED0_pin 4
