@@ -11,26 +11,37 @@
 //Includes
 #include "temperature.h"
 
+I2C_TransferSeq_TypeDef write_seq;
+I2C_TransferSeq_TypeDef read_seq;
+uint8_t temp[2];
+
 /*	@brief : Initializing i2c for temperature readings	*/
 void tempInit(void)
 {
-	init_i2c();
+	init_i2c();	/*	Initialization for I2C	*/
 	TempTransferInit_i2c();
 
 }
 
-/*	@brief: Checking temperature, includes load power management	*/
-void check_temp_event(void)
+
+void temp_write_complete(void)
 {
-	gpioReInit();
-	timerWaitUs(80000);//Waiting for maximum boot time
+	logFlush();
+	sleep_em1();
+}
+
+void temp_read_complete(void)
+{
+	uint16_t temp_cat;
 	float temperature_c;
-	CORE_DECLARE_IRQ_STATE;
-	CORE_ENTER_CRITICAL();//Entering critical state
-	event_word &= ~0x01;
-	CORE_EXIT_CRITICAL();
-	temperature_c = GetTemp_i2c();
+	logFlush();
+	sleep_em1();
+	ms_sleep(10);
+	sleep_em1();
+//	temp[0] = read_seq.buf[0].data[0];		//2 byte value read
+//	temp[1] = read_seq.buf[0].data[1];
+	temp_cat = (temp[0]<<8) | temp[1];//Reading both bytes to 16 bit value
+	temperature_c = temp_cat;
 	temperature_c = (((175.72*temperature_c)/65536)-(46.85));//Converting value read to degrees celsius
-	gpioDeInit();
-	LOG_INFO("Temperature is %f", temperature_c);
+	LOG_ERROR("Temperature : %f", temperature_c);
 }

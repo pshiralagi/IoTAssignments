@@ -38,24 +38,8 @@ int appMain(gecko_configuration_t *config)
   while (1)
   {
 	  /*	Checks if events are sent and performs them if needed and then sleeps	*/
-	  scheduler();
+	  event_scheduler();
 
-  }
-}
-
-/*	@brief : Function to schedule and perform events and then go to sleep based on selected mode	*/
-void scheduler(void)
-{
-	  /* Check if any event flag is set */
-	  while (event_word != 0)
-	  {
-		  /* Check if event 1 is set */
-		  if(event_word & (1<<0))
-		  {
-			  check_temp_event();//Event 1, flag clears, checks temperature over i2c
-		  }
-
-	  }
 
 	  /* If energy mode required is not 0, go to sleep */
 	  CORE_DECLARE_IRQ_STATE;
@@ -65,7 +49,11 @@ void scheduler(void)
 		  goToSleep();
 	  }
 	  CORE_EXIT_CRITICAL();
+
+  }
 }
+
+
 
 
 

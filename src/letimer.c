@@ -13,7 +13,7 @@
 /*
  * @brief : Initialization routine for letimer0
  */
-
+uint16_t overflow_count;
 void letimerInit(void)
 {
 	LETIMER_Init_TypeDef letimer_default =  {false, false, true, false, 0, 0, letimerUFOANone, letimerUFOANone, letimerRepeatFree, 0} ;	//Instance of default values
@@ -29,9 +29,26 @@ void letimerInit(void)
 
 }
 
+/*	@brief : Interrupt handler for LETIMER0	*/
 void LETIMER0_IRQHandler(void)
 {
 	uint32_t flag = LETIMER_IntGet(LETIMER0);
+	/*	Code to set event 1	*/
+	/*Setting event handler flag for assignment 2*/
+	CORE_DECLARE_IRQ_STATE;
+	CORE_ENTER_CRITICAL();
+	event_word |= 0x01;
+	if(flag & LETIMER_IF_UF)
+	{
+		overflow_count++;
+	}
+	if(flag & LETIMER_IF_COMP1)
+	{
+		LETIMER_IntDisable(LETIMER0,LETIMER_IFC_COMP1);
+	}
+	CORE_EXIT_CRITICAL();
+	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
+	LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//setting period when led should switch on
 
 	/*Code for LED blinking in assignment 2*/
 //	if(irq_flg == 0)
@@ -45,14 +62,7 @@ void LETIMER0_IRQHandler(void)
 //		irq_flg = 0;
 //	}
 
-	/*	Code to set event 1	*/
-	/*Setting event handler flag for assignment 2*/
-	CORE_DECLARE_IRQ_STATE;
-	CORE_ENTER_CRITICAL();
-	event_word |= 0x01;
-	CORE_EXIT_CRITICAL();
-	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
-	LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//setting period when led should switch on
+
 
 }
 /*	@brief : Blocking function to wait us_wait us of time
@@ -79,5 +89,27 @@ void timerWaitUs(uint32_t us_wait)
 			;
 		}
 	}
+
+}
+
+void ms_sleep(uint32_t ms_wait)
+{
+	uint32_t max_cnt, clk_freq, current_cnt, reload_val;
+	max_cnt = LETIMER_CompareGet(LETIMER0, 0);
+	clk_freq = CMU_ClockFreqGet(cmuClock_LETIMER0);
+	current_cnt = LETIMER_CounterGet(LETIMER0);
+	ms_wait = (ms_wait*clk_freq)/(1000);
+	if (ms_wait < current_cnt)
+	{
+		reload_val = (current_cnt - ms_wait);
+
+	}
+	else if (ms_wait >= current_cnt)
+	{
+		reload_val = (max_cnt - (ms_wait - current_cnt));
+	}
+
+	LETIMER_CompareSet(LETIMER0,1,reload_val);
+	LETIMER_IntEnable(LETIMER0, LETIMER_IEN_COMP1);
 
 }

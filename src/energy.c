@@ -43,3 +43,13 @@ void goToSleep(void)
 		SLEEP_ForceSleepInEM4();
 	}
 }
+
+void sleep_em1(void)
+{
+	CORE_DECLARE_IRQ_STATE;
+	CORE_ENTER_CRITICAL();
+	SLEEP_SleepBlockBegin(sleepEM2);
+	SLEEP_Sleep();
+	CORE_EXIT_CRITICAL();
+	SLEEP_SleepBlockEnd(sleepEM2);
+}

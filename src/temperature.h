@@ -11,12 +11,13 @@
 #define temperature_h
 
 //Includes
-#include "letimer.h"
-#include "i2c.h"
+#include "main.h"
 
 //Function declarations
 void tempInit(void);	//Initializing i2c for temperature readings
 void check_temp_event(void);	//Checking temperature, includes load power management
+void temp_write_complete(void);
+void temp_read_complete(void);
 
 
 

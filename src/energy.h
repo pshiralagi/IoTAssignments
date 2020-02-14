@@ -21,5 +21,6 @@
 
 void energyConfig(void);	//Function to initialize various energy modes
 void goToSleep(void);		//Function to go to sleep based on energy mode
+void sleep_em1(void);
 
 #endif

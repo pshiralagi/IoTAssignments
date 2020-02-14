@@ -43,7 +43,7 @@ void gpioInit()
  * @brief : Function to reinitialize required GPIO pins after deinitializing before sleep
  *
  */
-void gpioReInit()
+void tempGpioReInit(void)
 {
 	GPIO_PinOutSet(enable_port,enable_pin);
 }
@@ -52,7 +52,7 @@ void gpioReInit()
  * @brief : Function to deinitialize required GPIO pins
  *
  */
-void gpioDeInit()
+void tempGpioDeInit(void)
 {
 	GPIO_PinOutClear(SDA_port,SDA_pin);
 	GPIO_PinOutClear(SCL_port,SCL_pin);
@@ -86,4 +86,14 @@ void toggleLed(void)
 	  {
 		  gpioLed0SetOff();
 	  }
+}
+
+void lpm_on(void)
+{
+	tempGpioReInit();
+}
+
+void lpm_off(void)
+{
+	tempGpioDeInit();
 }

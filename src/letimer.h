@@ -21,8 +21,10 @@
 /*	Functions	*/
 void letimerInit(void);	//Initialize letimer0
 void timerWaitUs(uint32_t us_wait);	//Blocking wait function, input in us
+void ms_sleep(uint32_t ms_wait);
 
 uint16_t calc_primary_period, calc_secondary_period;
+extern uint16_t overflow_count;
 volatile uint8_t irq_flg;
 volatile uint8_t event_word;
 #endif

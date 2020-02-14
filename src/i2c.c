@@ -10,8 +10,13 @@
 //Includes
 #include "i2c.h"
 
+//Variables
 uint8_t write_buffer_data = {0xF3};//Measure temperature, no hold, master mode connabd
 uint8_t write_buffer_len = sizeof(write_buffer_data);
+//Externs
+I2C_TransferSeq_TypeDef write_seq;
+I2C_TransferSeq_TypeDef read_seq;
+uint8_t temp[2];
 
 /*
  * @brief : Function to initialize i2c with default values
@@ -21,7 +26,6 @@ void init_i2c(void)
 {
 	I2CSPM_Init_TypeDef i2cInit = I2CSPM_INIT_DEFAULT;
 	I2CSPM_Init(&i2cInit);
-
 }
 
 /*
@@ -42,77 +46,38 @@ void TempTransferInit_i2c(void)
 	read_seq.buf[0].len = sizeof(temp);
 
 }
-/*
- * @brief : Function to write and read from temperature senso
- *
- */
-uint16_t GetTemp_i2c(void)
+
+
+/*	@brief : Function to enable interrupt for i2c0 and write value	*/
+void temp_i2c_write(void)
 {
-	uint16_t temp_cat;
-//	float celsius;
-	I2C_TransferReturn_TypeDef ret;
-	ret = I2CSPM_Transfer(I2C0, &write_seq);//Measure temperature, no hold, master mode
-	/*	Error handling	*/
-	if(ret == i2cTransferDone)
+	NVIC_EnableIRQ(I2C0_IRQn);
+	I2C_TransferReturn_TypeDef ret = I2C_TransferInit(I2C0, &write_seq);
+	if (ret != i2cTransferInProgress)
 	{
-		LOG_INFO("Write successful %d", ret);
+		LOG_ERROR("Tansfer unsuccessful");
 	}
-	if(ret == i2cTransferInProgress)
+
+}
+
+/*	@brief : Function to read value from temp sensor	*/
+void temp_i2c_read(void)
+{
+	I2C_TransferReturn_TypeDef ret = I2C_TransferInit(I2C0, &read_seq);
+	if (ret != i2cTransferInProgress)
 	{
-		LOG_ERROR("Write in progress %d", ret);
+		LOG_ERROR("Tansfer unsuccessful");
 	}
-	if(ret == i2cTransferNack)
+}
+
+/*	@brief : I2C0 interrupt handler	*/
+void I2C0_IRQHandler(void)
+{
+	I2C_TransferReturn_TypeDef i2c_return_transfer_status;
+	i2c_return_transfer_status = I2C_Transfer(I2C0);
+	if (i2c_return_transfer_status != i2cTransferInProgress)
 	{
-		LOG_ERROR("Nack on write %d", ret);
+		LOG_ERROR("Transfer complete with status %d", i2c_return_transfer_status);
 	}
-	if(ret == i2cTransferBusErr)
-	{
-		LOG_ERROR("Bus error on write %d", ret);
-	}
-	if(ret == i2cTransferArbLost)
-	{
-		LOG_ERROR("Arbitration lost on write %d", ret);
-	}
-	if(ret == i2cTransferUsageFault)
-	{
-		LOG_ERROR("Usage fault on write %d", ret);
-	}
-	if(ret == i2cTransferSwFault)
-	{
-		LOG_ERROR("SW fault on write %d", ret);
-	}
-	timerWaitUs(5000);//Wait for write to complete
-	ret = I2CSPM_Transfer(I2C0, &read_seq);
-	temp_cat = (temp[0]<<8) | temp[1];//Reading both bytes to 16 bit value
-//	celsius = (((175.72*temp_cat)/65536)-(46.85));//Converting value read to degrees celsius
-	//Error handling for read
-	if(ret == i2cTransferDone)
-	{
-		LOG_INFO("Read successful %d", ret);
-	}
-	if(ret == i2cTransferInProgress)
-	{
-		LOG_ERROR("Read in progress %d", ret);
-	}
-	if(ret == i2cTransferNack)
-	{
-		LOG_ERROR("Nack on read %d", ret);
-	}
-	if(ret == i2cTransferBusErr)
-	{
-		LOG_ERROR("Bus error on read %d", ret);
-	}
-	if(ret == i2cTransferArbLost)
-	{
-		LOG_ERROR("Arbitration lost on read %d", ret);
-	}
-	if(ret == i2cTransferUsageFault)
-	{
-		LOG_ERROR("Usage fault on read %d", ret);
-	}
-	if(ret == i2cTransferSwFault)
-	{
-		LOG_ERROR("SW fault on read %d", ret);
-	}
-	return temp_cat;//Returning temperature in celsius
+
 }

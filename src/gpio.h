@@ -15,9 +15,11 @@ void gpioLed0SetOn();	//Sets LED 0
 void gpioLed0SetOff();	//Clears LED 0
 void gpioLed1SetOn();	//Sets LED 1
 void gpioLed1SetOff();	//Clears LED 1
-void gpioDeInit();		//Clears required GPIOs for LPM
-void gpioReInit();		//Resets required GPIO for LPM to restart peripherals
+void tempGpioDeInit(void);		//Clears required GPIOs for LPM
+void tempGpioReInit(void);		//Resets required GPIO for LPM to restart peripherals
 void toggleLed(void);	//Toggles LEDs
+void lpm_off(void);
+void lpm_on(void);
 
 #define	LED0_port gpioPortF
 #define LED0_pin 4
