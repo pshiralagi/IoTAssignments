@@ -44,6 +44,8 @@ void goToSleep(void)
 	}
 }
 
+
+/*	@brief : Function to sleep in EM1	*/
 void sleep_em1(void)
 {
 	CORE_DECLARE_IRQ_STATE;

@@ -13,8 +13,8 @@
 
 #include "main.h"
 
-void event_scheduler(void);
-void clear_event_interrupt(void);
+void event_scheduler(void);	//FSM, event handler
+void clear_event_interrupt(void);	//Clear I2C in NVIC and clear interrupt word
 
 enum states {
 	load_power_management_on,
@@ -25,6 +25,6 @@ enum states {
 	I2C_read_complete,
 	load_power_management_off,
 	num_states
-};
+};	//enum with various states
 
 #endif

@@ -23,13 +23,14 @@ void tempInit(void)
 
 }
 
-
+/*	@brief : Going to sleep until write is complete	*/
 void temp_write_complete(void)
 {
 	logFlush();
 	sleep_em1();
 }
 
+/*	@brief : Going to sleep until read is complete and then calculating temp value in celsius	*/
 void temp_read_complete(void)
 {
 	uint16_t temp_cat;
@@ -38,8 +39,6 @@ void temp_read_complete(void)
 	sleep_em1();
 	ms_sleep(10);
 	sleep_em1();
-//	temp[0] = read_seq.buf[0].data[0];		//2 byte value read
-//	temp[1] = read_seq.buf[0].data[1];
 	temp_cat = (temp[0]<<8) | temp[1];//Reading both bytes to 16 bit value
 	temperature_c = temp_cat;
 	temperature_c = (((175.72*temperature_c)/65536)-(46.85));//Converting value read to degrees celsius

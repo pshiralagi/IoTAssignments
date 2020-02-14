@@ -88,11 +88,12 @@ void toggleLed(void)
 	  }
 }
 
+/*	@brief : Re-initialize GPIO pins for LPM ON	*/
 void lpm_on(void)
 {
 	tempGpioReInit();
 }
-
+/*	@brief : De-initialize GPIO pins for LPM OFF	*/
 void lpm_off(void)
 {
 	tempGpioDeInit();

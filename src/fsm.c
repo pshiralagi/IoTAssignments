@@ -10,7 +10,7 @@
 
 #include "fsm.h"
 
-/*	@brief : Function to schedule and perform events and then go to sleep based on selected mode	*/
+/*	@brief : Function to schedule and perform events and then go to sleep based on selected mode using a FSM	*/
 void event_scheduler(void)
 {
 	uint8_t current_state, next_state;
@@ -62,6 +62,7 @@ void event_scheduler(void)
 
 }
 
+/*	@brief : Function to disable I2C interrupts and clear the event	*/
 void clear_event_interrupt(void)
 {
   	  CORE_DECLARE_IRQ_STATE;
