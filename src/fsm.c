@@ -10,10 +10,11 @@
 
 #include "fsm.h"
 
+uint8_t current_state, next_state;
+
 /*	@brief : Function to schedule and perform events and then go to sleep based on selected mode using a FSM	*/
 void event_scheduler(void)
 {
-	uint8_t current_state, next_state;
 	current_state = load_power_management_on;
 	next_state = current_state;
 	  /* Check if any event flag is set */
@@ -23,6 +24,7 @@ void event_scheduler(void)
 		  {
 		  case(load_power_management_on):
 				  lpm_on();
+		  	  	  energyConfig();
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(power_up_sequence_wait):
@@ -32,14 +34,18 @@ void event_scheduler(void)
 		  	  	  break;
 		  case(I2C_write_start):
 				  temp_i2c_write();
+		  	  	  LOG_INFO("I2C WRITE");
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(I2C_write_complete):
-				  temp_write_complete();
+//					sleep_em1();
+		  	  	  	ms_sleep(1);
+		  			sleep_em1();
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(I2C_read_start):
 				  temp_i2c_read();
+		  	  	  LOG_INFO("I2C READ");
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(I2C_read_complete):
@@ -68,7 +74,7 @@ void clear_event_interrupt(void)
   	  CORE_DECLARE_IRQ_STATE;
   	  CORE_ENTER_CRITICAL();
   	  NVIC_DisableIRQ(I2C0_IRQn);
-  	  event_word &= ~0x01;
+  	  event_word &= ~0x1;
   	  CORE_EXIT_CRITICAL();
 
 }

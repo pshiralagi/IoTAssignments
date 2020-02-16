@@ -22,6 +22,7 @@ uint8_t temp[2];
  * @brief : Function to initialize i2c with default values
  *
  */
+uint8_t current_state, next_state;
 void init_i2c(void)
 {
 	I2CSPM_Init_TypeDef i2cInit = I2CSPM_INIT_DEFAULT;
@@ -73,11 +74,19 @@ void temp_i2c_read(void)
 /*	@brief : I2C0 interrupt handler	*/
 void I2C0_IRQHandler(void)
 {
+	CORE_DECLARE_IRQ_STATE;
+	CORE_ENTER_CRITICAL();
 	I2C_TransferReturn_TypeDef i2c_return_transfer_status;
 	i2c_return_transfer_status = I2C_Transfer(I2C0);
 	if (i2c_return_transfer_status != i2cTransferInProgress)
 	{
 		LOG_ERROR("Transfer complete with status %d", i2c_return_transfer_status);
+//		next_state = current_state+1;
 	}
+	else
+	{
+		LOG_ERROR("Error!");
+	}
+	CORE_EXIT_CRITICAL();
 
 }

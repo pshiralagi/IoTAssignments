@@ -27,4 +27,6 @@ enum states {
 	num_states
 };	//enum with various states
 
+extern uint8_t current_state, next_state;
+
 #endif

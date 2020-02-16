@@ -20,10 +20,14 @@ void letimerInit(void)
 	LETIMER_Init(LETIMER0, &letimer_default);		//Initialization of letimer0 with default values
 	//calc_led_period = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(led_period - led_on_time))/1000;//calculating ledperiod
 	calc_primary_period = ((CMU_ClockFreqGet(cmuClock_LETIMER0))*(primary_period))/1000;//calculating ledontime
-	LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//Comparator 0, value to be loaded set
-	LETIMER_IntEnable(LETIMER0, LETIMER_IF_UF);					//Enable interrupts
+	LETIMER_CompareSet(LETIMER0, 0, (calc_primary_period));		//Comparator 0, value to be loaded set
+	LETIMER_CompareSet(LETIMER0, 1, 0xFFFF);
+	LETIMER_IntEnable(LETIMER0, LETIMER_IEN_UF);					//Enable interrupts
+	LETIMER_IntDisable(LETIMER0, LETIMER_IEN_COMP0);
+	LETIMER_IntDisable(LETIMER0,LETIMER_IEN_COMP1);
 	NVIC_EnableIRQ(LETIMER0_IRQn);
 	LETIMER_Enable(LETIMER0, true);
+//	LETIMER_CounterSet(LETIMER0,0xFFFF);
 	event_word = 0;
 	//irq_flg = 0;		//Initializing flag toggled in interrupt
 
@@ -32,23 +36,26 @@ void letimerInit(void)
 /*	@brief : Interrupt handler for LETIMER0	*/
 void LETIMER0_IRQHandler(void)
 {
-	uint32_t flag = LETIMER_IntGet(LETIMER0);
 	/*	Code to set event 1	*/
 	/*Setting event handler flag for assignment 2*/
 	CORE_DECLARE_IRQ_STATE;
 	CORE_ENTER_CRITICAL();
-	event_word |= 0x01;
+	uint32_t flag = LETIMER_IntGetEnabled(LETIMER0);
 	if(flag & LETIMER_IF_UF)
 	{
 		overflow_count++;
+		event_word |= 0x01;
+//		LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//setting period when led should switch on
 	}
 	if(flag & LETIMER_IF_COMP1)
 	{
-		LETIMER_IntDisable(LETIMER0,LETIMER_IFC_COMP1);
+		LETIMER_CompareSet(LETIMER0,1,0xFFFF);
+		LETIMER_IntDisable(LETIMER0,LETIMER_IEN_COMP1);
 	}
-	CORE_EXIT_CRITICAL();
 	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
-	LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//setting period when led should switch on
+	CORE_EXIT_CRITICAL();
+
+
 
 	/*Code for LED blinking in assignment 2*/
 //	if(irq_flg == 0)
@@ -92,6 +99,9 @@ void timerWaitUs(uint32_t us_wait)
 
 }
 
+/*	@brief : Function to generate an interrupt after the given ms_wait time in milliseconds
+ *	@param : ms_wait is the time to interrupt at in milliseconds
+ *	 */
 void ms_sleep(uint32_t ms_wait)
 {
 	uint32_t max_cnt, clk_freq, current_cnt, reload_val;

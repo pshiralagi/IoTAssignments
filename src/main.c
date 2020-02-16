@@ -29,7 +29,8 @@ int appMain(gecko_configuration_t *config)
   letimerInit();
 
   /*	Configurations for different energy modes	*/
-  energyConfig();
+  if(energy_mode == 1 || energy_mode == 2)
+	  energyConfig();
 
   /*	Initialize i2c to read temperature	*/
   tempInit();
