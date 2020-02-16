@@ -59,7 +59,10 @@ src/cmu.o: ../src/cmu.c ../src/cmu.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
  ../src/energy.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h \
- ../src/log.h \
+ ../src/log.h ../src/letimer.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_letimer.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h
 
 ../src/cmu.h:
@@ -185,5 +188,13 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pla
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h:
 
 ../src/log.h:
+
+../src/letimer.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_letimer.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h:

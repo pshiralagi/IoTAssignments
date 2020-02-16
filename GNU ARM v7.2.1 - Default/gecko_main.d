@@ -80,7 +80,7 @@ gecko_main.o: ../gecko_main.c ../src/main.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src/hal-config-ecen5823.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h \
- ../src/temperature.h ../src/i2c.h \
+ ../src/temperature.h ../src/main.h ../src/fsm.h ../src/i2c.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h \
@@ -258,6 +258,10 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pro
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h:
 
 ../src/temperature.h:
+
+../src/main.h:
+
+../src/fsm.h:
 
 ../src/i2c.h:
 

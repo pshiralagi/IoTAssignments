@@ -10,8 +10,6 @@
 #ifndef i2c_h
 #define i2c_h
 
-//Defines
-#define INCLUDE_LOG_DEBUG 1
 
 //Includes
 #include <i2cspm.h>

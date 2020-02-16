@@ -80,8 +80,8 @@ void I2C0_IRQHandler(void)
 	i2c_return_transfer_status = I2C_Transfer(I2C0);
 	if (i2c_return_transfer_status != i2cTransferInProgress)
 	{
-		LOG_ERROR("Transfer complete with status %d", i2c_return_transfer_status);
-//		next_state = current_state+1;
+		LOG_INFO("Transfer complete with status %d", i2c_return_transfer_status);
+		next_state = current_state+1;
 	}
 	else
 	{

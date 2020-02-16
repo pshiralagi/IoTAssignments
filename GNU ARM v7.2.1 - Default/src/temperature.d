@@ -1,5 +1,9 @@
 src/temperature.o: ../src/temperature.c ../src/temperature.h \
- ../src/letimer.h \
+ ../src/main.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/gecko_configuration.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_gattdb_def.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h \
+ ../src/gpio.h ../src/letimer.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_letimer.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/em_device.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p632f512gm48.h \
@@ -66,9 +70,7 @@ src/temperature.o: ../src/temperature.c ../src/temperature.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h \
- ../src/i2c.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\soc/native_gecko.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal-config.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/board_features.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/ble-configuration.h \
@@ -77,10 +79,24 @@ src/temperature.o: ../src/temperature.c ../src/temperature.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal-config-app-common.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src/hal-config-ecen5823.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h \
- ../src/gpio.h
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h \
+ ../src/fsm.h ../src/i2c.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h
 
 ../src/temperature.h:
+
+../src/main.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/gecko_configuration.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_gattdb_def.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h:
+
+../src/gpio.h:
 
 ../src/letimer.h:
 
@@ -216,11 +232,7 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pla
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h:
 
-../src/i2c.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h:
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\soc/native_gecko.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal-config.h:
 
@@ -238,6 +250,16 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src/hal-config-ecen5823.h:
 
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h:
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h:
 
-../src/gpio.h:
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h:
+
+../src/fsm.h:
+
+../src/i2c.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h:

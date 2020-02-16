@@ -21,7 +21,7 @@ uint32_t loggerGetTimestamp(void)
 	max_ticks=LETIMER_CompareGet(LETIMER0,0);
 	current_ticks=LETIMER_CounterGet(LETIMER0);
 	time_ms=((max_ticks-current_ticks)*1000)/CMU_ClockFreqGet(cmuClock_LETIMER0);
-	time_ms+=(overflow_count*1000);
+	time_ms+=(overflow_count*max_ticks);
 	return time_ms;
 }
 

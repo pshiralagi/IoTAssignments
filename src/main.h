@@ -30,8 +30,6 @@ void event_scheduler(void);	//Function to schedule and perform events and then g
 
 
 
-#define INCLUDE_LOG_DEBUG 1	//Debug required in file
-
 
 #endif
 

@@ -54,9 +54,16 @@ src/energy.o: ../src/energy.c ../src/energy.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_dmareq.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_af_ports.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_af_pins.h \
- ../src/log.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h
+ ../src/log.h ../src/letimer.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_letimer.h \
+ ../src/cmu.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h
 
 ../src/energy.h:
 
@@ -172,6 +179,22 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pla
 
 ../src/log.h:
 
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h:
+../src/letimer.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_letimer.h:
+
+../src/cmu.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h:

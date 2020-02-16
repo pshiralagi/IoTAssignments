@@ -38,15 +38,23 @@ void event_scheduler(void)
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(I2C_write_complete):
-//					sleep_em1();
-		  	  	  	ms_sleep(1);
-		  			sleep_em1();
+#ifdef INCLUDE_LOGGING
+				  sleep_em1();
+#endif
 		  	  	  next_state = current_state+1;
 		  	  	  break;
 		  case(I2C_read_start):
+				  ms_sleep(1);
+				  sleep_em1();
 				  temp_i2c_read();
 		  	  	  LOG_INFO("I2C READ");
 		  	  	  next_state = current_state+1;
+		  	  	  break;
+		  case(I2C_read_wait):
+				  sleep_em1();
+#ifdef INCLUDE_LOGGING
+		  	  	  next_state = current_state+1;
+#endif
 		  	  	  break;
 		  case(I2C_read_complete):
 				  temp_read_complete();
@@ -61,7 +69,7 @@ void event_scheduler(void)
 		  }
 		  if (next_state != current_state)
 		  {
-			  LOG_ERROR("State changing from %d to %d", current_state, next_state);
+			  LOG_INFO("State changing from %d to %d", current_state, next_state);
 			  current_state = next_state;
 		  }
 	  }
@@ -74,6 +82,7 @@ void clear_event_interrupt(void)
   	  CORE_DECLARE_IRQ_STATE;
   	  CORE_ENTER_CRITICAL();
   	  NVIC_DisableIRQ(I2C0_IRQn);
+  	  SLEEP_SleepBlockEnd(sleepEM3);
   	  event_word &= ~0x1;
   	  CORE_EXIT_CRITICAL();
 

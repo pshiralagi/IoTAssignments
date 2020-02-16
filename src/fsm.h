@@ -22,6 +22,7 @@ enum states {
 	I2C_write_start,
 	I2C_write_complete,
 	I2C_read_start,
+	I2C_read_wait,
 	I2C_read_complete,
 	load_power_management_off,
 	num_states
