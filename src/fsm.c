@@ -82,7 +82,7 @@ void clear_event_interrupt(void)
   	  CORE_DECLARE_IRQ_STATE;
   	  CORE_ENTER_CRITICAL();
   	  NVIC_DisableIRQ(I2C0_IRQn);
-  	  SLEEP_SleepBlockEnd(sleepEM3);
+  	  SLEEP_SleepBlockEnd(energy_mode_i2c+1);
   	  event_word &= ~0x1;
   	  CORE_EXIT_CRITICAL();
 

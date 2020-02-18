@@ -17,7 +17,8 @@
 #include "log.h"
 #include <em_emu.h>
 
-#define energy_mode sleepEM3	//Sleep mode selected, this mode will be entered (not this mode - 1)
+#define energy_mode sleepEM3	//Sleep mode selected, this mode will be entered (not this mode - 1) after completing events
+#define energy_mode_i2c sleepEM1 //Sleep mode to enter during i2c transactions and waits
 
 void energyConfig(void);	//Function to initialize various energy modes
 void goToSleep(void);		//Function to go to sleep based on energy mode
