@@ -11,78 +11,11 @@
 #include "fsm.h"
 /* Flag for indicating DFU Reset must be performed */
 uint8_t boot_to_dfu = 0;
-uint8_t current_state, next_state;
-void send_temp(void);
 
-/*	@brief : Function to schedule and perform events and then go to sleep based on selected mode using a FSM	*/
-void event_scheduler(uint32_t event_word)
-{
-	current_state = load_power_management_on;
-	next_state = current_state;
-	  /* Check if any event flag is set */
-	  while (event_word != 0)
-	  {
-		  switch(current_state)
-		  {
-		  case(load_power_management_on):
-				  lpm_on();
-		  	  	  energyConfig();
-		  	  	  next_state = current_state+1;
-		  	  	  break;
-		  case(power_up_sequence_wait):
-				  ms_sleep(80);
-		  	  	  sleep_em1();
-		  	  	  next_state = current_state+1;
-		  	  	  break;
-		  case(I2C_write_start):
-				  temp_i2c_write();
-		  	  	  LOG_INFO("I2C WRITE");
-		  	  	  next_state = current_state+1;
-		  	  	  break;
-		  case(I2C_write_complete):
-				  sleep_em1();
-#ifdef INCLUDE_LOGGING
-		  	  	  next_state = current_state+1;
-#endif
-		  	  	  break;
-		  case(I2C_read_start):
-				  ms_sleep(10);
-				  sleep_em1();
-				  temp_i2c_read();
-		  	  	  LOG_INFO("I2C READ");
-		  	  	  next_state = current_state+1;
-		  	  	  break;
-		  case(I2C_read_wait):
-				  sleep_em1();
-
-#ifdef INCLUDE_LOGGING
-		  	  	  next_state = current_state+1;
-#endif
-		  	  	  break;
-		  case(I2C_read_complete):
-				  temp_read_complete();
-		  	  	  next_state = current_state+1;
-		  	  	  break;
-		  case(load_power_management_off):
-				  lpm_off();
-		  	  	  clear_event_interrupt();
-		  	  	  event_word = 0;
-		  	  	  break;
-		  default:
-			  LOG_ERROR("State does not exist");
-		  }
-		  if (next_state != current_state)
-		  {
-			  LOG_INFO("State changing from %d to %d", current_state, next_state);
-			  current_state = next_state;
-		  }
-	  }
-
-}
 
 void gecko_pav_update(struct gecko_cmd_packet* evt)
 {
-//	int16_t rssi;
+	int16_t *rssi;
 	/* Handle events */
 		switch (BGLIB_MSG_ID(evt->header)) {
 		  /* This boot event is generated when the system boots up after reset.
@@ -93,8 +26,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			 * The first two parameters are minimum and maximum advertising interval, both in
 			 * units of (milliseconds * 1.6). */
 			gecko_cmd_le_gap_set_advertise_timing(0, 250, 250, 0, 0);
-//
-//			/* Start general advertising and enable connections. */
+
+			/* Start general advertising and enable connections. */
 			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
 			break;
 
@@ -108,44 +41,80 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 
 		  /* This event is generated when the software timer has ticked. In this example the temperature
 		   * is read after every 1 second and then the indication of that is sent to the listening client. */
-//		case gecko_evt_le_connection_rssi_id:
-//
-//			rssi = gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection);
-//			if(rssi > -35)
-//			{
-//				gecko_cmd_system_set_tx_power(-25);
-//			}
-//			if((rssi<=-35)&&(rssi>-45))
-//			{
-//				gecko_cmd_system_set_tx_power(-20);
-//			}
-//			if((rssi<=-45)&&(rssi>-55))
-//			{
-//				gecko_cmd_system_set_tx_power(-15);
-//			}
-//			if((rssi<=-55)&&(rssi>-65))
-//			{
-//				gecko_cmd_system_set_tx_power(-10);
-//			}
-//			if((rssi<=-65)&&(rssi>-75))
-//			{
-//				gecko_cmd_system_set_tx_power(-5);
-//			}
-//			if((rssi<=-75)&&(rssi>-85))
-//			{
-//				gecko_cmd_system_set_tx_power(5);
-//			}
-//			if(rssi <= -85)
-//			{
-//				gecko_cmd_system_set_tx_power(5);
-//			}
-//			break;
+		case gecko_evt_le_connection_rssi_id:
+
+			rssi = (gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection));
+			if(*rssi > -35)
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(-25);
+				gecko_cmd_system_halt(0);
+			}
+			if((*rssi<=-35)&&(*rssi>-45))
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(-20);
+				gecko_cmd_system_halt(0);
+			}
+			if((*rssi<=-45)&&(*rssi>-55))
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(-15);
+				gecko_cmd_system_halt(0);
+			}
+			if((*rssi<=-55)&&(*rssi>-65))
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(-10);
+				gecko_cmd_system_halt(0);
+			}
+			if((*rssi<=-65)&&(*rssi>-75))
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(-5);
+				gecko_cmd_system_halt(0);
+			}
+			if((*rssi<=-75)&&(*rssi>-85))
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(5);
+				gecko_cmd_system_halt(0);
+			}
+			if(*rssi <= -85)
+			{
+				gecko_cmd_system_halt(1);
+				gecko_cmd_system_set_tx_power(5);
+				gecko_cmd_system_halt(0);
+			}
+			break;
 		  case gecko_evt_system_external_signal_id:
-
-			  event_scheduler(evt->data.evt_system_external_signal.extsignals);
-
-			  send_temp();
-			  //gecko_external_signal(0x00);
+			  current_state = evt->data.evt_system_external_signal.extsignals;
+			  switch(evt->data.evt_system_external_signal.extsignals)
+			  		  {
+			  		  case(load_power_management_on):
+			  				  lpm_on();
+			  		  	  	  energyConfig();
+			  		  	  	  ms_sleep(80);
+			  		  	  	  break;
+			  		  case(I2C_write_start):
+			  				  temp_i2c_write();
+			  		  	  	  LOG_INFO("I2C WRITE");
+			  		  	  	  break;
+			  		  case(I2C_read_break):
+			  				  ms_sleep(10);
+			  		  	  	  break;
+			  		  case(I2C_read_wait):
+			  				  temp_i2c_read();
+			  		  	  	  break;
+			  		  case(I2C_read_complete):
+			  				  temp_read_complete();
+			  		  	  	  lpm_off();
+							  clear_event_interrupt();
+							  send_temp();
+			  		  	  	  break;
+			  		  default:
+			  			  LOG_ERROR("State does not exist");
+			  		  }
 			break;
 
 		  case gecko_evt_le_connection_closed_id:
@@ -195,7 +164,6 @@ void clear_event_interrupt(void)
   	  CORE_ENTER_CRITICAL();
   	  NVIC_DisableIRQ(I2C0_IRQn);
   	  SLEEP_SleepBlockEnd(energy_mode_i2c+1);
-//  	  event_word &= ~0x1;
   	  CORE_EXIT_CRITICAL();
 
 }

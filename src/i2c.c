@@ -81,9 +81,15 @@ void I2C0_IRQHandler(void)
 	if (i2c_return_transfer_status != i2cTransferInProgress)
 	{
 		LOG_INFO("Transfer complete with status %d", i2c_return_transfer_status);
-		CORE_ENTER_CRITICAL();
-		next_state = current_state+1;
-		CORE_EXIT_CRITICAL();
+		if(current_state == I2C_write_start)
+		{
+			gecko_external_signal(0x03);
+		}
+
+		if(current_state == I2C_read_wait)
+		{
+			gecko_external_signal(0x05);
+		}
 	}
 	else
 	{

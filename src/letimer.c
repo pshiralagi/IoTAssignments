@@ -36,8 +36,6 @@ void LETIMER0_IRQHandler(void)
 {
 	/*	Code to set event 1	*/
 	/*Setting event handler flag for assignment 2*/
-	CORE_DECLARE_IRQ_STATE;
-	CORE_ENTER_CRITICAL();
 	uint32_t flag = LETIMER_IntGetEnabled(LETIMER0);
 	if(flag & LETIMER_IF_UF)
 	{
@@ -49,9 +47,19 @@ void LETIMER0_IRQHandler(void)
 	{
 		LETIMER_CompareSet(LETIMER0,1,0xFFFF);
 		LETIMER_IntDisable(LETIMER0,LETIMER_IEN_COMP1);
+		CORE_DECLARE_IRQ_STATE;
+		CORE_ENTER_CRITICAL();
+		if(current_state == load_power_management_on)
+		{
+			gecko_external_signal(0x02);
+		}
+		if(current_state == I2C_read_break)
+		{
+			gecko_external_signal(0x04);
+		}
+		CORE_EXIT_CRITICAL();
 	}
 	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
-	CORE_EXIT_CRITICAL();
 
 }
 /*	@brief : Blocking function to wait us_wait us of time
