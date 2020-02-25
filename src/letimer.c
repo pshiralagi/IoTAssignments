@@ -27,9 +27,7 @@ void letimerInit(void)
 	LETIMER_IntDisable(LETIMER0,LETIMER_IEN_COMP1);
 	NVIC_EnableIRQ(LETIMER0_IRQn);
 	LETIMER_Enable(LETIMER0, true);
-//	LETIMER_CounterSet(LETIMER0,0xFFFF);
-	event_word = 0;
-	//irq_flg = 0;		//Initializing flag toggled in interrupt
+//	event_word = 0;
 
 }
 
@@ -44,8 +42,8 @@ void LETIMER0_IRQHandler(void)
 	if(flag & LETIMER_IF_UF)
 	{
 		overflow_count++;
-		event_word |= 0x01;
-//		LETIMER_CompareSet(LETIMER0, 0, calc_primary_period);		//setting period when led should switch on
+//		event_word |= 0x01;
+		gecko_external_signal(0x01);
 	}
 	if(flag & LETIMER_IF_COMP1)
 	{
@@ -54,22 +52,6 @@ void LETIMER0_IRQHandler(void)
 	}
 	LETIMER_IntClear(LETIMER0, flag);					//clearing the flag
 	CORE_EXIT_CRITICAL();
-
-
-
-	/*Code for LED blinking in assignment 2*/
-//	if(irq_flg == 0)
-//	{
-//		LETIMER_CompareSet(LETIMER0, 0, calc_led_on_time);	//setting period when led should be switched off
-//		irq_flg = 1;
-//	}
-//	else if(irq_flg == 1)
-//	{
-//		LETIMER_CompareSet(LETIMER0, 0, calc_led_period);		//setting period when led should switch on
-//		irq_flg = 0;
-//	}
-
-
 
 }
 /*	@brief : Blocking function to wait us_wait us of time

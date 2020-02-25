@@ -58,15 +58,6 @@ src/main.o: ../src/main.c ../src/main.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_dmareq.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_af_ports.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_af_pins.h \
- ../src/cmu.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
- ../src/energy.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h \
- ../src/log.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\soc/native_gecko.h \
@@ -76,14 +67,26 @@ src/main.o: ../src/main.c ../src/main.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\EFR32BG13_BRD4104A\config/hal-config-board.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\halconfig\inc\hal-config/hal-config-types.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal-config-app-common.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src/hal-config-ecen5823.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h \
+ ../src/cmu.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h \
+ ../src/energy.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h \
+ ../src/log.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h \
  ../src/temperature.h ../src/fsm.h ../src/i2c.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\drivers/i2cspm.h \
  C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h \
- C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/gatt_db.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_gattdb_def.h \
+ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\app\bluetooth\common\util/infrastructure.h
 
 ../src/main.h:
 
@@ -207,24 +210,6 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pla
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\Device\SiliconLabs\EFR32BG13P\Include/efr32bg13p_af_pins.h:
 
-../src/cmu.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h:
-
-../src/energy.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h:
-
-../src/log.h:
-
-C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h:
-
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_core.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_common.h:
@@ -243,6 +228,10 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\pla
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h:
 
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_bus.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_assert.h:
+
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/hal-config-app-common.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src/hal-config-ecen5823.h:
@@ -250,6 +239,20 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/src
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_types.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_errorcodes.h:
+
+../src/cmu.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_cmu.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_gpio.h:
+
+../src/energy.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emdrv\sleep\inc/sleep.h:
+
+../src/log.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_emu.h:
 
 ../src/temperature.h:
 
@@ -262,3 +265,9 @@ C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\har
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\hardware\kit\common\halconfig/i2cspmhalconfig.h:
 
 C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\platform\emlib\inc/em_i2c.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi/gatt_db.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\protocol\bluetooth\ble_stack\inc\common/bg_gattdb_def.h:
+
+C:\Users\pkshi\SimplicityStudio\v4_workspace\ecen5823-assignments-pshiralagi\app\bluetooth\common\util/infrastructure.h:

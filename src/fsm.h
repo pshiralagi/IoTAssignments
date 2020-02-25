@@ -13,8 +13,9 @@
 
 #include "main.h"
 
-void event_scheduler(void);	//FSM, event handler
+void event_scheduler(uint32_t event_word);	//FSM, event handler
 void clear_event_interrupt(void);	//Clear I2C in NVIC and clear interrupt word
+void gecko_pav_update(struct gecko_cmd_packet* evt);
 
 enum states {
 	load_power_management_on,

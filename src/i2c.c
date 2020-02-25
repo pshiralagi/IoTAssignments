@@ -75,18 +75,20 @@ void temp_i2c_read(void)
 void I2C0_IRQHandler(void)
 {
 	CORE_DECLARE_IRQ_STATE;
-	CORE_ENTER_CRITICAL();
+//	CORE_ENTER_CRITICAL();
 	I2C_TransferReturn_TypeDef i2c_return_transfer_status;
 	i2c_return_transfer_status = I2C_Transfer(I2C0);
 	if (i2c_return_transfer_status != i2cTransferInProgress)
 	{
 		LOG_INFO("Transfer complete with status %d", i2c_return_transfer_status);
+		CORE_ENTER_CRITICAL();
 		next_state = current_state+1;
+		CORE_EXIT_CRITICAL();
 	}
 	else
 	{
 		LOG_ERROR("Error!");
 	}
-	CORE_EXIT_CRITICAL();
+//	CORE_EXIT_CRITICAL();
 
 }

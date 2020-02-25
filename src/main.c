@@ -15,18 +15,16 @@
 
 int appMain(gecko_configuration_t *config)
 {
-
   /*	Initialize stack	*/
   gecko_init(config);
 
   /*	Initialize required gpios	*/
   gpioInit();
-
   /*	Initialize clocks	*/
   cmuInit();
 
-  /*	Initialize timer	*/
-  letimerInit();
+
+
 
   /*	Configurations for different energy modes	*/
   if(energy_mode == 1 || energy_mode == 2)
@@ -35,21 +33,20 @@ int appMain(gecko_configuration_t *config)
   /*	Initialize i2c to read temperature	*/
   tempInit();
 
+  /*	Initialized LCD to display data	*/
+//  displayInit();
+
+
   /* Infinite loop */
   while (1)
   {
+	  struct gecko_cmd_packet* evt;
+
 	  /*	Checks if events are sent and performs them if needed and then sleeps	*/
-	  event_scheduler();
+	  evt = gecko_wait_event();
+//	  event_scheduler();
+	  gecko_pav_update(evt);
 
-
-	  /* If energy mode required is not 0, go to sleep */
-	  CORE_DECLARE_IRQ_STATE;
-	  CORE_ENTER_CRITICAL();
-	  if (energy_mode != 0)
-	  {
-		  goToSleep();
-	  }
-	  CORE_EXIT_CRITICAL();
 
   }
 }

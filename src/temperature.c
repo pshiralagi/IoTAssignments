@@ -10,7 +10,6 @@
 
 //Includes
 #include "temperature.h"
-
 I2C_TransferSeq_TypeDef write_seq;
 I2C_TransferSeq_TypeDef read_seq;
 uint8_t temp[2];
@@ -34,9 +33,11 @@ void temp_write_complete(void)
 void temp_read_complete(void)
 {
 	uint16_t temp_cat;
-	float temperature_c;
-	temp_cat = (temp[0]<<8) | temp[1];//Reading both bytes to 16 bit value
+	CORE_DECLARE_IRQ_STATE;
+	CORE_ENTER_CRITICAL();
+	temp_cat = (uint16_t)(temp[0]<<8) | temp[1];//Reading both bytes to 16 bit value
 	temperature_c = temp_cat;
 	temperature_c = (((175.72*temperature_c)/65536)-(46.85));//Converting value read to degrees celsius
+	CORE_EXIT_CRITICAL();
 	LOG_ERROR("Temperature : %f", temperature_c);
 }

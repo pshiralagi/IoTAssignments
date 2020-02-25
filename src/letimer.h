@@ -10,7 +10,7 @@
 #ifndef letimer_h
 #define letimer_h
 #include <em_letimer.h>
-#include "cmu.h"
+#include "main.h"
 #include <em_core.h>
 
 
@@ -26,5 +26,5 @@ void ms_sleep(uint32_t ms_wait);	//Function to generate timer interrupt at param
 uint16_t calc_primary_period, calc_secondary_period;
 extern uint16_t overflow_count;
 volatile uint8_t irq_flg;
-volatile uint8_t event_word;
+//volatile uint32_t event_word;
 #endif
