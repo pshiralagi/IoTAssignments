@@ -28,9 +28,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 		   * Do not call any stack commands before receiving the boot event.
 		   * Here the system is set to start advertising immediately after boot procedure. */
 		  case gecko_evt_system_boot_id:
-			/* Set advertising parameters. 100ms advertisement interval.
-			 * The first two parameters are minimum and maximum advertising interval, both in
-			 * units of (milliseconds * 1.6). */
+			/* Set advertising parameters. 250ms advertisement interval.
+			 */
 			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
 			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0);
 
@@ -44,8 +43,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  letimerInit();
 			  break;
 
-		  /* This event is generated when the software timer has ticked. In this example the temperature
-		   * is read after every 1 second and then the indication of that is sent to the listening client. */
+		  /* This event is generated when we get rssi value and then we set tx_power accordingly	*/
 		case gecko_evt_le_connection_rssi_id:
 			/* Critical section used to ensure connection is not reset	*/
 			rssi_val = evt->data.evt_le_connection_rssi.rssi;
@@ -113,6 +111,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 				CORE_EXIT_CRITICAL();
 			}
 			break;
+
+			/*	This case contains all external signal events, which covers the I2C state machine	*/
 		  case gecko_evt_system_external_signal_id:
 			  current_state = evt->data.evt_system_external_signal.extsignals;
 			  switch(evt->data.evt_system_external_signal.extsignals)
@@ -144,6 +144,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  		  }
 			break;
 
+			/*	This case is entered if bluetooth connection is closed	*/
 		  case gecko_evt_le_connection_closed_id:
 			/* Check if need to boot to dfu mode */
 			if (boot_to_dfu) {
