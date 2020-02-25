@@ -15,7 +15,7 @@ uint8_t boot_to_dfu = 0;
 
 void gecko_pav_update(struct gecko_cmd_packet* evt)
 {
-	int16_t *rssi;
+	int16_t rssi_val;;
 	/* Handle events */
 		switch (BGLIB_MSG_ID(evt->header)) {
 		  /* This boot event is generated when the system boots up after reset.
@@ -25,7 +25,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			/* Set advertising parameters. 100ms advertisement interval.
 			 * The first two parameters are minimum and maximum advertising interval, both in
 			 * units of (milliseconds * 1.6). */
-			gecko_cmd_le_gap_set_advertise_timing(0, 250, 250, 0, 0);
+			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
+			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0);
 
 			/* Start general advertising and enable connections. */
 			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
@@ -37,53 +38,51 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  letimerInit();
 			  break;
 
-
-
 		  /* This event is generated when the software timer has ticked. In this example the temperature
 		   * is read after every 1 second and then the indication of that is sent to the listening client. */
 		case gecko_evt_le_connection_rssi_id:
 
-			rssi = (gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection));
-			if(*rssi > -35)
+			rssi_val = evt->data.evt_le_connection_rssi.rssi;
+			if((rssi_val) > -35)
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(-25);
+				gecko_cmd_system_set_tx_power(-250);
 				gecko_cmd_system_halt(0);
 			}
-			if((*rssi<=-35)&&(*rssi>-45))
+			if(((rssi_val)<=-35)&&(rssi_val>-45))
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(-20);
+				gecko_cmd_system_set_tx_power(-200);
 				gecko_cmd_system_halt(0);
 			}
-			if((*rssi<=-45)&&(*rssi>-55))
+			if(((rssi_val)<=-45)&&(rssi_val>-55))
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(-15);
+				gecko_cmd_system_set_tx_power(-150);
 				gecko_cmd_system_halt(0);
 			}
-			if((*rssi<=-55)&&(*rssi>-65))
+			if((rssi_val<=-55)&&(rssi_val>-65))
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(-10);
+				gecko_cmd_system_set_tx_power(-50);
 				gecko_cmd_system_halt(0);
 			}
-			if((*rssi<=-65)&&(*rssi>-75))
+			if((rssi_val<=-65)&&(rssi_val>-75))
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(-5);
+				gecko_cmd_system_set_tx_power(0);
 				gecko_cmd_system_halt(0);
 			}
-			if((*rssi<=-75)&&(*rssi>-85))
+			if((rssi_val<=-75)&&(rssi_val>-85))
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(5);
+				gecko_cmd_system_set_tx_power(50);
 				gecko_cmd_system_halt(0);
 			}
-			if(*rssi <= -85)
+			if(rssi_val <= -85)
 			{
 				gecko_cmd_system_halt(1);
-				gecko_cmd_system_set_tx_power(5);
+				gecko_cmd_system_set_tx_power(80);
 				gecko_cmd_system_halt(0);
 			}
 			break;
@@ -92,6 +91,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  switch(evt->data.evt_system_external_signal.extsignals)
 			  		  {
 			  		  case(load_power_management_on):
+							  gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection);
 			  				  lpm_on();
 			  		  	  	  energyConfig();
 			  		  	  	  ms_sleep(80);
@@ -129,6 +129,9 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
 			}
 			LETIMER_IntDisable(LETIMER0, LETIMER_IEN_UF);
+			gecko_cmd_system_halt(1);
+			gecko_cmd_system_set_tx_power(80);
+			gecko_cmd_system_halt(0);
 			break;
 
 		  /* Events related to OTA upgrading

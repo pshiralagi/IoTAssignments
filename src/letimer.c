@@ -27,7 +27,6 @@ void letimerInit(void)
 	LETIMER_IntDisable(LETIMER0,LETIMER_IEN_COMP1);
 	NVIC_EnableIRQ(LETIMER0_IRQn);
 	LETIMER_Enable(LETIMER0, true);
-//	event_word = 0;
 
 }
 
@@ -40,7 +39,6 @@ void LETIMER0_IRQHandler(void)
 	if(flag & LETIMER_IF_UF)
 	{
 		overflow_count++;
-//		event_word |= 0x01;
 		gecko_external_signal(0x01);
 	}
 	if(flag & LETIMER_IF_COMP1)

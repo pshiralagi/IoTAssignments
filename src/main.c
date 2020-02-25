@@ -23,9 +23,6 @@ int appMain(gecko_configuration_t *config)
   /*	Initialize clocks	*/
   cmuInit();
 
-
-
-
   /*	Configurations for different energy modes	*/
   if(energy_mode == 1 || energy_mode == 2)
 	  energyConfig();
@@ -44,7 +41,7 @@ int appMain(gecko_configuration_t *config)
 
 	  /*	Checks if events are sent and performs them if needed and then sleeps	*/
 	  evt = gecko_wait_event();
-//	  event_scheduler();
+
 	  gecko_pav_update(evt);
 
 
