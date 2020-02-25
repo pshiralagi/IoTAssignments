@@ -12,5 +12,13 @@
 #include<em_cmu.h>
 #include "energy.h"
 
-void cmuInit(void);	//initializes the oscillator and selects the clock source
+/*
+ * @brief : cmuInit initializes the oscillator and selects the clock source
+ * For EM0 to EM2, LFXO is used
+ * For EM3, ULFRCo is used
+ * LFA clock branch is selcted
+ * LFA and LETIMER0 clocks are enabled
+ */
+void cmuInit(void);
+
 #endif

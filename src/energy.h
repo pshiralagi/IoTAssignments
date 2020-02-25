@@ -20,8 +20,13 @@
 #define energy_mode sleepEM1	//Sleep mode selected, this mode will be entered (not this mode - 1) after completing events
 #define energy_mode_i2c sleepEM1 //Sleep mode to enter during i2c transactions and waits
 
-void energyConfig(void);	//Function to initialize various energy modes
-void goToSleep(void);		//Function to go to sleep based on energy mode
-void sleep_em1(void);		//Function to sleep in EM1
+/*	@brief : Function to initialize various energy modes	*/
+void energyConfig(void);
+
+/*	@brief : Function to go to sleep based on energy mode	*/
+void goToSleep(void);
+
+/*	@brief : Function to sleep based on external SLEEP_Block statements	*/
+void sleep_em1(void);
 
 #endif

@@ -15,16 +15,31 @@
 #include <i2cspm.h>
 #include "main.h"
 //Function declarations
-void init_i2c(void);				//Initialized i2c0
-void TempTransferInit_i2c(void);	//Initializing i2c values to write and read from temperature sensor
-void temp_i2c_write(void);			//Function to write command value to i2c temp sensor
-void temp_i2c_read(void);			//Function to read value from temp sensor
 
-extern uint8_t temp[2];					//2 bytes stored after data is read
+/*
+ * @brief : Function to initialize i2c with default values
+ *
+ */
+void init_i2c(void);
+
+/*
+ * @brief : Initializing i2c values to write and read from temperature sensor
+ *
+ */
+void TempTransferInit_i2c(void);
+
+/*	@brief : Function to enable interrupt for i2c0 and write value	*/
+void temp_i2c_write(void);
+
+/*	@brief : Function to read value from temp sensor	*/
+void temp_i2c_read(void);
+
+
 
 //Variables
 extern I2C_TransferSeq_TypeDef write_seq;	//Write sequence
 extern I2C_TransferSeq_TypeDef read_seq;	//Read sequence
+extern uint8_t temp[2];					//2 bytes stored after data is read
 
 
 #define TEMP_ADDR (0x40)	//Address of temp sensor

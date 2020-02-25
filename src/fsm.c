@@ -2,17 +2,23 @@
  * @filename : fsm.c
  *
  *  @date : Feb 13, 2020
- *  @description : Contains Finite State Machine functions
+ *  @description : Contains Finite State Machine functions for bluetooth and I2C
  *
  *    	@author : pshiralagi
  *    	@reference : https://siliconlabs.github.io/Gecko_SDK_Doc/efr32bg13/html/index.html
+ *    					Some code taken from soc-thermometer example code
  */
 
 #include "fsm.h"
 /* Flag for indicating DFU Reset must be performed */
 uint8_t boot_to_dfu = 0;
 
-
+/*
+ * @brief : State machine function containing code for Bluetooth and I2C state machine,
+ * includes connection closing interrupt disable (bonus)
+ *
+ * @param : evt is the gecko cmd packet returned from gecko_wait_event
+ */
 void gecko_pav_update(struct gecko_cmd_packet* evt)
 {
 	int16_t rssi_val;;
@@ -41,49 +47,70 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 		  /* This event is generated when the software timer has ticked. In this example the temperature
 		   * is read after every 1 second and then the indication of that is sent to the listening client. */
 		case gecko_evt_le_connection_rssi_id:
-
+			/* Critical section used to ensure connection is not reset	*/
 			rssi_val = evt->data.evt_le_connection_rssi.rssi;
 			if((rssi_val) > -35)
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(-250);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if(((rssi_val)<=-35)&&(rssi_val>-45))
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(-200);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if(((rssi_val)<=-45)&&(rssi_val>-55))
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(-150);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if((rssi_val<=-55)&&(rssi_val>-65))
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(-50);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if((rssi_val<=-65)&&(rssi_val>-75))
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(0);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if((rssi_val<=-75)&&(rssi_val>-85))
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(50);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			if(rssi_val <= -85)
 			{
+				CORE_DECLARE_IRQ_STATE;
+				CORE_ENTER_CRITICAL();
 				gecko_cmd_system_halt(1);
 				gecko_cmd_system_set_tx_power(80);
 				gecko_cmd_system_halt(0);
+				CORE_EXIT_CRITICAL();
 			}
 			break;
 		  case gecko_evt_system_external_signal_id:
@@ -171,6 +198,7 @@ void clear_event_interrupt(void)
 
 }
 
+/*	@brief : Function to convert temperature from float to format which can be sent over radio and then send the data	*/
 void send_temp(void)
 {
 	CORE_DECLARE_IRQ_STATE;

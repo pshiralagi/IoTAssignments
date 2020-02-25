@@ -22,14 +22,7 @@ void tempInit(void)
 
 }
 
-/*	@brief : Going to sleep until write is complete	*/
-void temp_write_complete(void)
-{
-	logFlush();
-	sleep_em1();
-}
-
-/*	@brief : Going to sleep until read is complete and then calculating temp value in celsius	*/
+/*	@brief : Calculating temp value in celsius as obtained from I2C buffer	*/
 void temp_read_complete(void)
 {
 	uint16_t temp_cat;

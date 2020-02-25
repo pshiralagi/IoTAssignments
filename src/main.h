@@ -27,7 +27,6 @@
 
 //Functions
 int appMain(gecko_configuration_t *config);	//main function, consists some initializations and calls to functions
-//void event_scheduler(void);	//Function to schedule and perform events and then go to sleep based on selected mode
 
 
 

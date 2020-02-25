@@ -39,9 +39,10 @@ int appMain(gecko_configuration_t *config)
   {
 	  struct gecko_cmd_packet* evt;
 
-	  /*	Checks if events are sent and performs them if needed and then sleeps	*/
+	  /*	Bluetooth wait handling, returns data which is primarily used to select a state in gecko_pav_update	*/
 	  evt = gecko_wait_event();
 
+	  /*	State machine containing bluetooth states and I2C states integrated together	*/
 	  gecko_pav_update(evt);
 
 

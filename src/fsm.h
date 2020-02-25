@@ -20,10 +20,22 @@
 #define CON_MAX (0x0060) //Max connection interval  Time = Value x 1.25 ms
 #define CON_MIN (0x0060) //Min connection interval  Time = Value x 1.25 ms
 #define SLAVE_LAT (0x0004) //Slave latency value is a multiple by which the time of the number of connections is multiplied
-void clear_event_interrupt(void);	//Clear I2C in NVIC and clear interrupt word
+
+/*	@brief : Function to disable I2C interrupts and clear the event	*/
+void clear_event_interrupt(void);
+
+/*
+ * @brief : State machine function containing code for Bluetooth and I2C state machine,
+ * includes connection closing interrupt disable (bonus)
+ *
+ * @param : evt is the gecko cmd packet returned from gecko_wait_event
+ */
 void gecko_pav_update(struct gecko_cmd_packet* evt);
+
+/*	@brief : Function to convert temperature from float to format which can be sent over radio and then send the data	*/
 void send_temp(void);
 
+/*	I2C states	*/
 enum states {
 	load_power_management_on = 1,
 	I2C_write_start,
