@@ -88,6 +88,7 @@ static gecko_configuration_t config = {
   .ota.flags = 0,                                      /* Check flag options from UG136 */
   .ota.device_name_len = 3,                            /* Length of the device name in OTA DFU mode */
   .ota.device_name_ptr = "OTA",                        /* Device name in OTA DFU mode */
+#define HAL_PA_ENABLE 1
 #if (HAL_PA_ENABLE)
   .pa.config_enable = 1,                               /* Set this to be a valid PA config */
 #if defined(FEATURE_PA_INPUT_FROM_VBAT)

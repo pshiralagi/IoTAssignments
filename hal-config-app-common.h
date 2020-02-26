@@ -28,6 +28,8 @@
 
 #define HAL_EXTFLASH_FREQUENCY                        (1000000)
 
+
+
 #define HAL_PTI_ENABLE                                (1)
 #define HAL_PTI_MODE                                  (HAL_PTI_MODE_UART)
 #define HAL_PTI_BAUD_RATE                             (1600000)

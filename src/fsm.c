@@ -31,7 +31,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			/* Set advertising parameters. 250ms advertisement interval.
 			 */
 			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
-			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0);
+			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0100);
 
 			/* Start general advertising and enable connections. */
 			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
@@ -157,9 +157,12 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
 			}
 			LETIMER_IntDisable(LETIMER0, LETIMER_IEN_UF);
+			CORE_DECLARE_IRQ_STATE;
+			CORE_ENTER_CRITICAL();
 			gecko_cmd_system_halt(1);
 			gecko_cmd_system_set_tx_power(80);
 			gecko_cmd_system_halt(0);
+			CORE_EXIT_CRITICAL();
 			break;
 
 		  /* Events related to OTA upgrading

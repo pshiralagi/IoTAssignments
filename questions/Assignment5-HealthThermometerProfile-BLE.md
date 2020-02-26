@@ -7,17 +7,17 @@ See [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 1. Provide screen shot verifying the Advertising period matches the values required for the assignment.
    <br>Screenshot:  
-   ![advertising_period](screenshots/assignment5/advertising_period.png)  
+   ![advertising_period](screenshots/ss_ass5_question1.png)  
 
 2. What is the average current between advertisements?
-   Answer:
+   Answer: 3.13 mA
    <br>Screenshot:  
-   ![avg_current_between_advertisements](screenshots/assignment5/avg_current_between_advertisements.png)  
+   ![avg_current_between_advertisements](screenshots/ss_ass5_question1.png)  
 
 3. What is the peak current of an advertisement? 
-   Answer:
+   Answer: 26.32 mA
    <br>Screenshot:  
-   ![peak_current_of_advertisement](screenshots/assignment5/peak_current_of_advertisement.png)  
+   ![peak_current_of_advertisement](screenshots/ss_ass5_question3.png)  
 
 4. Provide screen shot verifying the connection interval setting matches the value required for the assignment.
    <br>Screenshot: 
