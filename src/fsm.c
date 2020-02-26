@@ -46,7 +46,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 
 		  /* This event is generated when we get rssi value and then we set tx_power accordingly	*/
 		case gecko_evt_le_connection_rssi_id:
-			/* Critical section used to ensure connection is not reset	*/
+			/* Critical section used to ensure connection is not reset due to timeout	*/
 			rssi_val = evt->data.evt_le_connection_rssi.rssi;
 			if((rssi_val) > -35)
 			{
