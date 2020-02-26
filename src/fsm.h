@@ -20,7 +20,7 @@
 *  - Range: 0x0006 to 0x0c80 */
 #define CON_MAX (0x003C) //Max connection interval  Time = Value x 1.25 ms
 #define CON_MIN (0x003C) //Min connection interval  Time = Value x 1.25 ms
-#define SLAVE_LAT (0x0003) //Slave latency value is a multiple by which the time of the number of connections is multiplied
+#define SLAVE_LAT (0x0003) //Slave latency value is a multiple by which the time of the number of connections is multiplied, must connect on 4th cycle
 #define SUP_TIM (0x0050)	//The value in milliseconds must be larger than (1 + latency) * max_interval * 2, where max_interval is given in milliseconds
 
 /*	@brief : Function to disable I2C interrupts and clear the event	*/
