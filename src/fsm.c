@@ -31,7 +31,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			/* Set advertising parameters. 250ms advertisement interval.
 			 */
 			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
-			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0100);
+			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0050);
 
 			/* Start general advertising and enable connections. */
 			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
@@ -146,16 +146,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 
 			/*	This case is entered if bluetooth connection is closed	*/
 		  case gecko_evt_le_connection_closed_id:
-			/* Check if need to boot to dfu mode */
-			if (boot_to_dfu) {
-			  /* Enter to DFU OTA mode */
-			  gecko_cmd_system_reset(2);
-			} else {
-			  /* Stop timer in case client disconnected before indications were turned off */
-			  gecko_cmd_hardware_set_soft_timer(0, 0, 0);
 			  /* Restart advertising after client has disconnected */
 			  gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
-			}
 			LETIMER_IntDisable(LETIMER0, LETIMER_IEN_UF);
 			CORE_DECLARE_IRQ_STATE;
 			CORE_ENTER_CRITICAL();
@@ -163,26 +155,6 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			gecko_cmd_system_set_tx_power(80);
 			gecko_cmd_system_halt(0);
 			CORE_EXIT_CRITICAL();
-			break;
-
-		  /* Events related to OTA upgrading
-			 ----------------------------------------------------------------------------- */
-
-		  /* Checks if the user-type OTA Control Characteristic was written.
-		   * If written, boots the device into Device Firmware Upgrade (DFU) mode. */
-		  case gecko_evt_gatt_server_user_write_request_id:
-			if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_ota_control) {
-			  /* Set flag to enter to OTA mode */
-			  boot_to_dfu = 1;
-			  /* Send response to Write Request */
-			  gecko_cmd_gatt_server_send_user_write_response(
-				evt->data.evt_gatt_server_user_write_request.connection,
-				gattdb_ota_control,
-				bg_err_success);
-
-			  /* Close connection to enter to DFU OTA mode */
-			  gecko_cmd_le_connection_close(evt->data.evt_gatt_server_user_write_request.connection);
-			}
 			break;
 
 		  default:

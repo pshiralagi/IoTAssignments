@@ -10,7 +10,7 @@ See [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
    ![advertising_period](screenshots/ss_ass5_question1.png)  
 
 2. What is the average current between advertisements?
-   Answer: 3.13 mA
+   Answer: 4.84 uA
    <br>Screenshot:  
    ![avg_current_between_advertisements](screenshots/ss_ass5_question1.png)  
 
@@ -33,12 +33,12 @@ See [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
    ![slave_latency](screenshots/assignment5/slave_latency.png)  
 
 7. What is the peak current of a data transmission when the phone is connected and placed next to the Blue Gecko? 
-   Answer:
+   Answer: 10.52 mA
    <br>Screenshot:  
-   ![peak_current_phone_next_to](screenshots/assignment5/peak_current_phone_next_to.png)  
+   ![peak_current_phone_next_to](screenshots/ss_ass5_question7.png)  
    
 8. What is the peak current of a data transmission when the phone is connected and placed 20 feet away from the Blue Gecko? 
-   Answer:
+   Answer: 16.52 mA
    <br>Screenshot:  
-   ![peak_current_phone_20ft_away](screenshots/assignment5/peak_current_phone_20ft_away.png)  
+   ![peak_current_phone_20ft_away](screenshots/ss_ass5_question8.png)  
    

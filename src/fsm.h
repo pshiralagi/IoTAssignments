@@ -13,7 +13,8 @@
 
 #include "main.h"
 
-#define ADV_MAX (0x0190) //Max advertising, each increment is 0.625 milliseconds (400*0.625 = 250)
+//All values are converted to hex
+#define ADV_MAX (0x0190) //Max advertising, each increment is 0.625 milliseconds (400*0.625 = 250) 400 is hex 190
 #define ADV_MIN (0x0190) //Min advertising, each increment is 0.625 milliseconds (400*0.625 = 250)
 /*  - Time = Value x 1.25 ms
 *  - Range: 0x0006 to 0x0c80 */
