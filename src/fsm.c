@@ -31,7 +31,8 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			/* Set advertising parameters. 250ms advertisement interval.
 			 */
 			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
-			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0050);
+//			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0050);
+			gecko_cmd_le_gap_set_conn_parameters(CON_MIN, CON_MAX, SLAVE_LAT, SUP_TIM);
 
 			/* Start general advertising and enable connections. */
 			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);

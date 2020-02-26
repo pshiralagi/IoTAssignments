@@ -23,16 +23,8 @@ int appMain(gecko_configuration_t *config)
   /*	Initialize clocks	*/
   cmuInit();
 
-  /*	Configurations for different energy modes	*/
-  if(energy_mode == 1 || energy_mode == 2)
-	  energyConfig();
-
   /*	Initialize i2c to read temperature	*/
   tempInit();
-
-  /*	Initialized LCD to display data	*/
-//  displayInit();
-
 
   /* Infinite loop */
   while (1)
