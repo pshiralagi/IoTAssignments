@@ -21,7 +21,7 @@ uint8_t boot_to_dfu = 0;
  */
 void gecko_pav_update(struct gecko_cmd_packet* evt)
 {
-	int16_t rssi_val;;
+	int8_t rssi_val;;
 	/* Handle events */
 		switch (BGLIB_MSG_ID(evt->header)) {
 		  /* This boot event is generated when the system boots up after reset.
@@ -30,16 +30,15 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 		  case gecko_evt_system_boot_id:
 			/* Set advertising parameters. 250ms advertisement interval.
 			 */
-			gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0);
-//			gecko_cmd_le_connection_set_parameters(0, CON_MAX, CON_MIN, SLAVE_LAT,0x0050);
-			gecko_cmd_le_gap_set_conn_parameters(CON_MIN, CON_MAX, SLAVE_LAT, SUP_TIM);
+			  BTSTACK_CHECK_RESPONSE(gecko_cmd_le_gap_set_advertise_timing(0, ADV_MAX, ADV_MIN, 0, 0));
 
 			/* Start general advertising and enable connections. */
-			gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
+			  BTSTACK_CHECK_RESPONSE(gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable));
 			break;
 
 
 		case gecko_evt_le_connection_opened_id:
+			BTSTACK_CHECK_RESPONSE(gecko_cmd_le_connection_set_parameters(evt->data.evt_le_connection_opened.connection, CON_MIN, CON_MAX, SLAVE_LAT, SUP_TIM));
 			  /*	Initialize timer	*/
 			  letimerInit();
 			  break;
@@ -119,7 +118,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			  switch(evt->data.evt_system_external_signal.extsignals)
 			  		  {
 			  		  case(load_power_management_on):
-							  gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection);
+							  BTSTACK_CHECK_RESPONSE(gecko_cmd_le_connection_get_rssi(evt->data.cmd_le_connection_get_rssi.connection));
 			  				  lpm_on();
 			  		  	  	  energyConfig();
 			  		  	  	  ms_sleep(80);
@@ -148,7 +147,7 @@ void gecko_pav_update(struct gecko_cmd_packet* evt)
 			/*	This case is entered if bluetooth connection is closed	*/
 		  case gecko_evt_le_connection_closed_id:
 			  /* Restart advertising after client has disconnected */
-			  gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable);
+			BTSTACK_CHECK_RESPONSE(gecko_cmd_le_gap_start_advertising(0, le_gap_general_discoverable, le_gap_connectable_scannable));
 			LETIMER_IntDisable(LETIMER0, LETIMER_IEN_UF);
 			CORE_DECLARE_IRQ_STATE;
 			CORE_ENTER_CRITICAL();
@@ -198,7 +197,7 @@ void send_temp(void)
 	  /* Send indication of the temperature in htmTempBuffer to all "listening" clients.
 	   * This enables the Health Thermometer in the Blue Gecko app to display the temperature.
 	   *  0xFF as connection ID will send indications to all connections. */
-	  gecko_cmd_gatt_server_send_characteristic_notification(
-		0xFF, gattdb_temperature_measurement, 5, tempBuf);
+	  BTSTACK_CHECK_RESPONSE(gecko_cmd_gatt_server_send_characteristic_notification(
+		0xFF, gattdb_temperature_measurement, 5, tempBuf));
 
 }

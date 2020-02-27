@@ -24,6 +24,7 @@
 #include "i2c.h"
 #include<gatt_db.h>
 #include<infrastructure.h>
+#include "gecko_ble_errors.h"
 
 //Functions
 int appMain(gecko_configuration_t *config);	//main function, consists some initializations and calls to functions

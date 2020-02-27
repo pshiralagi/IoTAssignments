@@ -21,16 +21,16 @@ See [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 
 4. Provide screen shot verifying the connection interval setting matches the value required for the assignment.
    <br>Screenshot: 
-   ![connection_interval](screenshots/assignment5/connection_interval.png)  
+   ![connection_interval](screenshots/ss_ass5_question4.png)  
 
 5. What is the average current between connection intervals?
-   Answer:
+   Answer: 1.45 uA
    <br>Screenshot:  
-   ![avg_current_between_connection_intervals](screenshots/assignment5/avg_current_between_connection_intervals.png)  
+   ![avg_current_between_connection_intervals](screenshots/ss_ass5_question4.png)  
 
 6. Provide screen shot verifying the slave latency matches the value required for the assignment. 
    <br>Screenshot:  
-   ![slave_latency](screenshots/assignment5/slave_latency.png)  
+   ![slave_latency](screenshots/ss_ass5_question6.png)  
 
 7. What is the peak current of a data transmission when the phone is connected and placed next to the Blue Gecko? 
    Answer: 10.52 mA
